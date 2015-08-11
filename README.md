@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ZendSkeletonApplication
 =======================
 
@@ -116,3 +117,7 @@ it should look something like below:
     }
 
 Restart the nginx, now you should be ready to go!
+=======
+# argGraph2.0
+The second phase of argument mapping app for the philosophy department in UBC
+>>>>>>> b06f927367feb83c7433c8638db3a101136dfb88
