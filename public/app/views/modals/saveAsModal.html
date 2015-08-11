@@ -1,0 +1,24 @@
+<!--Save as modal window-->
+	<div class="modal fade" id="saveAsModal" tabindex="-1" role="dialog" aria-labelledby="saveAsLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+					<h4 class="modal-title" id="saveAsLabel">Save as</h4>
+				</div>
+				<div class="modal-body">
+					<form name="save-as-form" action="save-as-engine.php" method="POST" class="pure-form form" id = "form-save-as" onsubmit ="return validateFormSaveAs();">
+						<div class="form-group">
+							<p id = 'save-as-p'>Please enter a title for your graph:</p>
+							<input type="text" placeholder="Title" name="title" id="title-save-as" class="form-control">
+						</div>
+						<div>
+							<input type="text" placeholder="Graph" name="graph" id="graph-txt">
+						</div>
+							<!--<input type="submit" value="Save-as" id = "save-as-submit">-->
+							<button type="submit" class="btn btn-info btn-lg" value="Save-as" >Save</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>

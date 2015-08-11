@@ -1,0 +1,582 @@
+
+.modalDialog {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+.modalDialog:target {
+	opacity:1;
+	pointer-events: auto;
+}
+
+.modalDialog > div {
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
+}
+
+.close-save {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 10px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	height: 30px;
+	width: 10px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.close-save:hover { background: #00d9ff; }
+
+/*Modal elements*/
+#graph-txt {
+    visibility: hidden;
+}
+
+#title-save {
+    visibility: hidden;
+}
+
+#graph-txt-save {
+    visibility: hidden;
+}
+#count-save {
+    visibility: hidden;
+}
+
+/*forms */
+
+#psw input[type="password"] {
+font:small-caption;
+font-size:16px;
+-webkit-text-security: disc;
+}
+
+#rpsw input[type="password"] {
+font:small-caption;
+font-size:16px;
+-webkit-text-security: disc;
+}
+
+/*Graph part*/
+#myholder {
+   position: relative;
+   border: none;
+   display: inline-block;
+   background: #E6E6E6;
+   overflow: hidden;
+}
+#myholder svg {
+   background: transparent;
+}
+#myholder svg .link {
+   /* z-index: 1; */
+}
+
+.inPorts {
+   top:50;
+   left:0;
+}
+
+.outPorts {
+   height: auto;
+}
+
+.link-tools .tool-remove { display: none }
+.link-tools .tool-options { display: none }
+
+.myrect {
+   height: auto;
+}
+.html-element {
+   position: absolute;
+   background: transparent;
+   /* Make sure events are propagated to the JointJS element so, e.g. dragging works.*/
+   /* pointer-events: none; 
+   -webkit-user-select: none; */
+   border: none;
+   box-sizing: border-box;
+   z-index: 2;
+   
+}
+
+.color-edit {
+   position: absolute;
+   top: 0px;
+   left: 0px;
+   border: none;
+   width: 200px;
+   height: 100px;
+   background-color: #ffffff;
+   -webkit-box-shadow: 0 0 20px #B2B2B2, inset 0 0 5px #E6E6E6;
+	-moz-box-shadow: 0 0 20px #B2B2B2, inset 0 0 5px #E6E6E6;
+	box-shadow: 0 0 20px #B2B2B2, inset 0 0 5px #E6E6E6;
+}
+
+/* Enable interacting with inputs only. */
+ .html-element textarea,
+.html-element button {
+   pointer-events: auto;   
+} 
+
+.html-element div.btn-color{
+   position: absolute;
+   top: 0px;
+   left: 175px;
+   border: none;
+   width: 25px;
+   height: 100px;
+   background-color: transparent;
+	z-index:0;
+	-webkit-animation-name: none; 
+	-webkit-animation-duration: 1s; 
+	-webkit-animation-fill-mode: forwards;
+	animation-name: none;
+    animation-duration: 1s;
+	animation-fill-mode: forwards;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes buttons-on {
+    from   { left:175px;}
+    to  {left:210px;}
+}
+
+/* Standard syntax */
+@keyframes buttons-on {
+    from  {left:175px;}
+    to  {left:210px;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes buttons-off {
+    from   { left:210px;}
+    to  {left:175px;}
+}
+
+/* Standard syntax */
+@keyframes buttons-off {
+    from  {left:210px;}
+    to  {left:175px;}
+}
+
+.html-element button.green {
+   border: none;
+   background: transparent; 
+   border-radius: 5px;
+   width: 15px;
+   height: 15px;
+   line-height: 15px;
+   text-align: middle;
+   position: absolute;
+   top: 3px;
+   left: 5px;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   outline:0 !important;
+   -webkit-appearance:none;
+   opacity:1;
+}
+
+
+.html-element button.red {
+   border: none;
+   background: transparent;
+   border-radius: 5px;
+   width: 15px;
+   height: 15px;
+   line-height: 15px;
+   text-align: middle;
+   position: absolute;
+   top: 22px;
+   left: 5px;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   outline:0 !important;
+   -webkit-appearance:none;
+   opacity:1
+}
+
+/* .html-element button.red:hover {
+   opacity:1;
+} */
+
+.html-element button.yellow {
+   border: none;
+   background: transparent; 
+   border-radius: 5px;
+   width: 15px;
+   height: 15px;
+   line-height: 15px;
+   text-align: middle;
+   position: absolute;
+   top: 42px;
+   left: 5px;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   outline:0 !important;
+   -webkit-appearance:none;
+   opacity:1;
+}
+
+.html-element button.delete {
+   background: transparent;
+   border: none;
+   border-radius: 20px;
+   width: 15px;
+   height: 15px;
+   line-height: 15px;
+   text-align: middle;
+   position: absolute;
+   top: 62px;
+   left: 5px;
+   padding: 0;
+   margin: 0;
+   font-weight: bold;
+   cursor: pointer;
+}
+
+.html-element button.create {
+   background: transparent;
+   border: none;
+   border-radius: 20px;
+   width: 15px;
+   height: 15px;
+   line-height: 15px;
+   text-align: middle;
+   position: absolute;
+   top: 81px;
+   left: 5px;
+   padding: 0;
+   margin: 0;
+   font-weight: bold;
+   cursor: pointer;
+}
+
+
+.html-element textarea {
+   position: fixed;
+   top: 4px;
+   left: 4px;
+   height: 80px;
+   width: 170px;
+   border: 1px solid transparent;
+   color: #333;
+   background: transparent;
+   padding: 5px;
+   margin: 5px;
+   font-family: Arial, Helvetica, sans-serif;
+   font-style: normal;
+   font-size: 14px;
+   overflow: hidden;
+   text-align:justify;
+   outline:0 !important;
+   -webkit-appearance:none;
+   opacity:1;
+   resize: none;
+}
+
+
+
+/*the second element*/
+
+.middleHtmlEl {
+   position: absolute;
+   background: transparent;
+   /* Make sure events are propagated to the JointJS element so, e.g. dragging works.*/
+   pointer-events: none;
+   -webkit-user-select: none;
+   border-radius: 20px;
+   border: none;
+   padding: 0px;
+   margin: 0px;
+   box-sizing: border-box;
+   z-index: 3;
+   opacity:1;
+    
+}
+
+.middleHtmlEl button {
+   pointer-events: auto;   
+} 
+
+.middleHtmlEl button.colorEditMiddle {
+   border: none;
+   background: gray;
+   border-radius: 10px;
+   width: 20px;
+   height: 20px;
+   position: absolute;
+   top: -9px;
+   left: 9px;
+   outline:0 !important;
+   opacity:1;
+   z-index: 100;
+   cursor: pointer;
+}
+
+
+.middleHtmlEl button.deleteMiddle {
+   border: none;
+   background: transparent;
+   width: 20px;
+   height: 20px;
+   text-align: middle;
+   position: absolute;
+   top: -7px;
+   left: 9px;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   outline:0 !important;
+   /*Animation*/
+   -webkit-animation-name: none; 
+	-webkit-animation-duration: 1s; 
+	-webkit-animation-fill-mode: forwards;
+	animation-name: none;
+    animation-duration: 1s;
+	animation-fill-mode: forwards;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes deleteMiddle-on {
+    from   { left:9px; }
+    to  {left:-18px;}
+}
+
+/* Standard syntax */
+@keyframes deleteMiddle-on {
+    from  {left:9px;}
+    to  {left:-18px;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes deleteMiddle-off {
+    from   { left:-18px;}
+    to  {left:9px;}
+}
+
+/* Standard syntax */
+@keyframes deleteMiddle-off {
+    from  {left:-18px;}
+    to  {left:9px;}
+}
+
+.middleHtmlEl button.intersection{
+   border: none;
+   background: transparent;
+   width: 20px;
+   height: 20px;
+   text-align: middle;
+   position: absolute;
+   top: -9px;
+   left: 9px;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   outline:0 !important;
+  /*Animation*/
+   -webkit-animation-name: none; 
+	-webkit-animation-duration: 1s; 
+	-webkit-animation-fill-mode: forwards;
+	animation-name: none;
+    animation-duration: 1s;
+	animation-fill-mode: forwards;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes intersection-on {
+    from   { top:-9px; }
+    to  {top:15px;}
+}
+
+/* Standard syntax */
+@keyframes intersection-on {
+    from  {top:-9px;}
+    to  {top:15px;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes intersection-off {
+    from   { top:15px;}
+    to  {top:-9px;}
+}
+
+/* Standard syntax */
+@keyframes intersection-off {
+    from  {top:15px;}
+    to  {top:-9px;}
+}
+
+
+.middleHtmlEl button.greenMiddle {
+   background:transparent;
+   border: none;
+   border-radius: 10px;
+   width: 20px;
+   height: 20px;
+   line-height: 15px;
+   text-align: middle;
+   position: absolute;
+   top: -9px;
+   left: 9px;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   outline:0 !important;
+   /*Animation*/
+   -webkit-animation-name: none; 
+	-webkit-animation-duration: 1s; 
+	-webkit-animation-fill-mode: forwards;
+	animation-name: none;
+    animation-duration: 1s;
+	animation-fill-mode: forwards;   
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes greenMiddle-on {
+    from   { top:-9px; left:9px; }
+    to  {top:-30px; left:4px;}
+}
+
+/* Standard syntax */
+@keyframes greenMiddle-on {
+    from   { top:-9px; left:9px;}
+    to  {top:-30px; left:4px;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes greenMiddle-off {
+    from   { top:-30px; left:4px;}
+    to  {top:-9px; left: 9px;}
+}
+
+/* Standard syntax */
+@keyframes greenMiddle-off {
+    from   { top:-30px; left: 4px;}
+    to  {top:-9px; left: 9px;}
+}
+.middleHtmlEl button.redMiddle {
+   background:transparent;
+   border: none;
+   border-radius: 10px;
+   width: 20px;
+   height: 20px;
+   line-height: 15px;
+   text-align: middle;
+   position: absolute;
+   top: -9px;
+   left: 9px;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   outline:0 !important;
+   /*Animation*/
+   -webkit-animation-name: none; 
+	-webkit-animation-duration: 1s; 
+	-webkit-animation-fill-mode: forwards;
+	animation-name: none;
+    animation-duration: 1s;
+	animation-fill-mode: forwards;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes redMiddle-on {
+    from   { top:-9px; left:9px; }
+    to  {top:-23px; left:23px;}
+}
+
+/* Standard syntax */
+@keyframes redMiddle-on {
+    from   { top:-9px; left:9px; }
+    to  {top:-23px; left:23px;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes redMiddle-off {
+    from   { top:-23px; left:23px; }
+    to  {top:-9px; left:9px;}
+}
+
+/* Standard syntax */
+@keyframes redMiddle-off {
+    from   { top:-23px; left:23px; }
+    to  {top:-9px; left:9px;}
+}
+.middleHtmlEl button.yellowMiddle {
+   background:transparent;
+   border: none;
+   border-radius: 10px;
+   width: 20px;
+   height: 20px;
+   line-height: 15px;
+   text-align: middle;
+   position: absolute;
+   top: -9px;
+   left: 9px;
+   padding: 0;
+   margin: 0;
+   cursor: pointer;
+   outline:0 !important;
+   /*Animation*/
+   -webkit-animation-name: none; 
+	-webkit-animation-duration: 1s; 
+	-webkit-animation-fill-mode: forwards;
+	animation-name: none;
+    animation-duration: 1s;
+	animation-fill-mode: forwards;
+}
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes yellowMiddle-on {
+    from   { left:9px; top:-9px;}
+    to  {left:30px; top:-5px;}
+}
+
+/* Standard syntax */
+@keyframes yellowMiddle-on {
+    from   { left:9px; top:-9px;}
+    to  {left:30px; top:-5px;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes yellowMiddle-off {
+    from   { left:30px; top:-9px;}
+    to  {left:9px; top:-5px;}
+}
+
+/* Standard syntax */
+@keyframes yellowMiddle-off {
+    from   { left:30px; top:-9px;}
+    to  {left:9px; top:-5px;}
+}

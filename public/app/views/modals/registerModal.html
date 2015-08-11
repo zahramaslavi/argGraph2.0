@@ -1,0 +1,59 @@
+ <!--Register modal-->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labeledby="registerLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+				<h4 class="modal-title" id="registerLabel">Register</h4>
+			</div>
+			<div class="modal-body">
+				<form name="registerForm" class="pure-form form" ng-submit="registerSubmit()" ng-controller="registerCtrl" novalidate>
+						<div class='fullNameReg form-group'>
+							<input type="text" placeholder="Full Name*" name="fullNameReg" id="fullNameReg" class="form-control" ng-model="fullNameReg" required>
+							<span style="color:red" ng-show="registerForm.fullNameReg.$dirty && registerForm.fullNameReg.$invalid">
+							    <span ng-show="registerForm.fullNameReg.$error.required">Full name is required.</span>
+						    </span>
+						</div>
+						<div class='usernameReg form-group'>
+							<input type="text" placeholder="User name*" name="usernameReg" id="usernameReg" class="form-control" ng-model="usernameReg" required>
+							<span style="color:red" ng-show="registerForm.usernameReg.$dirty && registerForm.usernameReg.$invalid">
+							    <span ng-show="registerForm.usernameReg.$error.required">Full name is required.</span>
+						    </span>
+						</div>
+						
+						<div class='ubcEmailReg form-group'>
+							<input type="email" placeholder="UBC Email" name="ubcEmailReg" id="ubcEmailReg" class="form-control" ng-model="ubcEmailReg" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@ubc.ca$/" required>
+							<span style="color:red" ng-show="registerForm.ubcEmailReg.$dirty && registerForm.ubcEmailReg.$invalid">
+							    <span ng-show="registerForm.ubcEmailReg.$error.required">Email is required.</span>
+							    <span ng-show="registerForm.ubcEmailReg.$error.email">Invalid email address.</span>
+							    <span ng-show="registerForm.ubcEmailReg.$error.pattern">Please enter your UBC email.</span>
+						    </span>
+						</div>
+
+						<div class='passwordReg form-group'>
+							<input type="password" placeholder="Password*"  name="passwordReg" id = "passwordReg" class="form-control" ng-model="passwordReg" ng-minlength="8" ng-maxlength="20" required>
+							<span style="color:red" ng-show="registerForm.passwordReg.$dirty && registerForm.passwordReg.$invalid">
+							    <span ng-show="registerForm.passwordReg.$error.required">Password is required.</span>
+							    <span ng-show="registerForm.passwordReg.$error.minlength">Your password must be longer.</span>
+							    <span ng-show="registerForm.passwordReg.$error.maxlength">Your password must be shorter.</span>
+						    </span>
+						</div>
+
+						<div class='passwordRegConf form-group'>
+							<input type="password" placeholder="Confirm password*"  name="passwordRegConf" id = "passwordRegConf" class="form-control" ng-model="passwordRegConf" ng-minlength="8" ng-maxlength="20" required>
+							<span style="color:red" ng-show="registerForm.passwordRegConf.$dirty && registerForm.passwordRegConf.$invalid">
+							    <span ng-show="registerForm.passwordRegConf.$error.required">Password is required.</span>
+							    <span ng-show="registerForm.passwordRegConf.$error.minlength">Your password must be longer.</span>
+							    <span ng-show="registerForm.passwordRegConf.$error.maxlength">Your password must be shorter.</span>
+							    <!-- <span ng-show="passwordReg == passwordRegConf">Your passwords does not match.</span> -->
+						    </span>
+						</div>
+
+						<button type="submit" class="btn btn-info btn-lg" ng-disabled="registerForm.fullNameReg.$dirty && registerForm.fullNameReg.$invalid || registerForm.usernameReg.$dirty && registerForm.usernameReg.$invalid || registerForm.ubcEmailReg.$dirty && registerForm.ubcEmailReg.$invalid || registerForm.passwordReg.$dirty && registerForm.passwordReg.$invalid || registerForm.passwordRegConf.$dirty && registerForm.passwordRegConf.$invalid">Register</button>
+						
+						
+					</form>
+			</div>
+		</div>
+	</div>
+</div>

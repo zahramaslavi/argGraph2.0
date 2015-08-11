@@ -1,0 +1,27 @@
+<!--Save modal window-->
+		<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labeledby="saveLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+						<h4 class="modal-title" id="saveLabel"></h4>
+					</div>
+					<div class="modal-body">
+						<form name="save-form" action="save-engine.php" method="POST" class="pure-form" id = "form-save"; >
+							<div>
+								<p id= 'save-p'>Please click on save to save the graph:</p>
+								<input type="hidden" placeholder="Title" name="title" id="title-save">
+							</div>
+							<div>
+								<input type="hidden" placeholder="Graph" name="graph" id="graph-txt-save">
+							</div>
+							<div>
+								<input type="hidden" placeholder="Count" name="count" id="count-save">
+							</div>
+							<!--<input type="submit" value="Save" id = "save-submit">-->
+							<button type="submit" class="btn btn-info btn-lg" value="Save">Save</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
