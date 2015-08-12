@@ -1,20 +1,20 @@
-var mainApp = angular.module("mainApp", []);
+var mainApp = angular.module('mainApp', ['ngCookies']);
 
-mainApp.service('sharedProperties', function () {
+mainApp.service('sharedProperties', function($cookies) {
         var userLog = '';
 
         return {
             getUserLog: function () {
-                return userLog;
+                return $cookies.logObject;
             },
             setUserLog: function(value) {
-                userLog = value;
+                $cookies.logObject = value;
             }
         };
     });
 
 //The login controller
-mainApp.controller('loginCtrl', function($scope, $http, sharedProperties){
+mainApp.controller('loginCtrl', function($scope, $http, sharedProperties) {
 
     $scope.loginSubmit = function() {
 		
@@ -42,13 +42,15 @@ mainApp.controller('loginCtrl', function($scope, $http, sharedProperties){
 			
 			//console.log(JSON.stringify({data: data}));
 			//$scope.hiUser=data.username;
-			
+
+			//var logSessionObj = { 'logObj' : $scope.userLogMessage.username};
 			sharedProperties.setUserLog($scope.userLogMessage.username);
-			console.log(JSON.stringify($scope.userLogMessage.username));
+			//$cookies.logObject = JSON.stringify($scope.userLogMessage.username);
+			//console.log(JSON.stringify($scope.userLogMessage.username));
 		});
 		
 		res.error(function(data, status, headers, config) {
-			alert( "failure message: " + JSON.stringify({data: data}));
+			alert( 'failure message: ' + JSON.stringify({data: data}));
 		});
 		
 		$scope.ubcEmail='';
@@ -64,15 +66,18 @@ mainApp.controller('loginCtrl', function($scope, $http, sharedProperties){
 });
 
 
-mainApp.controller('checkLogCtrl', function($scope, sharedProperties){
+mainApp.controller('checkLogCtrl', function($scope, sharedProperties) {
 
 	$scope.userLogMessage=function()
-									{
-										//console.log("hihi")
-										return sharedProperties.getUserLog();
+		{
+			return sharedProperties.getUserLog();
+		}
 
-									}
-	//$scope.userLogMessage="test"
+		$scope.userLogout=function()
+		{
+			return sharedProperties.setUserLog('');
+		}
+	
 });
 
 //Register controller
