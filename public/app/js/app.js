@@ -1,15 +1,19 @@
 var mainApp = angular.module('mainApp', ['ngCookies']);
 
-mainApp.service('sharedProperties', function($cookies) {
-        var userLog = '';
+mainApp.factory('sharedProperties', function($cookies) {
+        //var userLog = '';
 
         return {
             getUserLog: function () {
                 return $cookies.logObject;
+                
             },
             setUserLog: function(value) {
                 $cookies.logObject = value;
-            }
+            },
+			setUserLogOut: function(){
+				$cookies.logObject = '';
+			}
         };
     });
 
@@ -22,6 +26,7 @@ mainApp.controller('loginCtrl', function($scope, $http, sharedProperties) {
 				ubcEmail : $scope.ubcEmail,
 				password : $scope.password
 		};
+
 
 		var res = $http({
 		    method: 'POST',
@@ -39,14 +44,9 @@ mainApp.controller('loginCtrl', function($scope, $http, sharedProperties) {
 	
 		res.success(function(response, status, headers, config) {
 			$scope.userLogMessage = response.data;
-			
-			//console.log(JSON.stringify({data: data}));
-			//$scope.hiUser=data.username;
-
-			//var logSessionObj = { 'logObj' : $scope.userLogMessage.username};
+			//console.log(JSON.stringify({data: response}));
 			sharedProperties.setUserLog($scope.userLogMessage.username);
-			//$cookies.logObject = JSON.stringify($scope.userLogMessage.username);
-			//console.log(JSON.stringify($scope.userLogMessage.username));
+		    console.log(sharedProperties.getUserLog());
 		});
 		
 		res.error(function(data, status, headers, config) {
@@ -59,8 +59,9 @@ mainApp.controller('loginCtrl', function($scope, $http, sharedProperties) {
 		$scope.loginForm.ubcEmail.$dirty = false;
 		$scope.loginForm.password.$dirty = false;
       
-
-		$('#logInModal').modal('hide');
+		 $scope.logedIn = function () {
+		      return sharedProperties.getUserLog();
+		    }
 
 	};				
 });
@@ -72,18 +73,18 @@ mainApp.controller('checkLogCtrl', function($scope, sharedProperties) {
 		{
 			return sharedProperties.getUserLog();
 		}
-
-		$scope.userLogout=function()
-		{
-			return sharedProperties.setUserLog('');
-		}
 	
+	$scope.userLogout=function()
+		{
+			sharedProperties.setUserLogOut();
+		}	
+		
 });
 
 //Register controller
 mainApp.controller('registerCtrl', function($scope, $http){
 	
-	
+	$scope.registered = false;
   
     $scope.registerSubmit = function() {
 		
@@ -113,6 +114,7 @@ mainApp.controller('registerCtrl', function($scope, $http){
 		res.success(function(data, status, headers, config) {
 			$scope.message = data;
 			console.log(JSON.stringify({data: data}));
+			$scope.registered = true;
 		});
 		
 		res.error(function(data, status, headers, config) {
@@ -132,10 +134,12 @@ mainApp.controller('registerCtrl', function($scope, $http){
 		$scope.registerForm.passwordReg.$dirty = false;
 		$scope.registerForm.passwordRegConf.$dirty = false;
 
+        $scope.turnRegisterOn = function(){
+        	$scope.registered = false;
+        }
+		/*$('#registerModal').modal('hide');
 
-		$('#registerModal').modal('hide');
-
-		alert("You successfully have been registered!");
+		alert("You successfully have been registered!");*/
 		
 	};				
 });
