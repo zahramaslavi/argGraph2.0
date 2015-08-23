@@ -60,8 +60,13 @@ class GraphController extends AbstractRestfulController
        // $this->setHeader();
 
         $userId = $this->params()->fromPost('userId');
-        $graph = $this->getGraphTable()->getGraphLog($userId);
-        return new JsonModel(array("data" => $graph));
+        $results = $this->getGraphTable()->getGraphUser($userId);
+
+        $data = array();
+        foreach($results as $result) {
+            $data[] = $result;
+        }
+        return new JsonModel(array("data" => $data));
     }
 
     

@@ -29,16 +29,16 @@
          return $row;
      }
 
-     public function getGraphLog($userId)
+     public function getGraphUser($userId)
      {
          //$id  = (int) $id;
-         $rowset = $this->tableGateway->select(array('userId' => $userId));
-         $row = $rowset->current();
+         $resultSet = $this->tableGateway->select(array('userId' => $userId));
+         //$row = $rowset->current();
          //if (!$row) {
              //throw new \Exception("Could not find row ");
              //return("Could not find the graph");
          //}
-         return $row;
+         return $resultSet;
      }
 
     

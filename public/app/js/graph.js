@@ -1,4 +1,4 @@
-$(document).ready(function() {
+//$(document).ready(function() {
 
   
 
@@ -74,7 +74,11 @@ $(document).ready(function() {
 		var linkView = paper.findViewByModel(link);
 		linkView.options.interactive = false;	
 	}
-						
+		
+	$('#saveas').click( 
+		function(){
+			console.log("click");
+		});					
 	//document.onscroll = function() { pageY += 1;};
 	
     var color = 'blue';
@@ -517,7 +521,8 @@ $(document).ready(function() {
 						
 					}, this));
 			    }
-			   
+
+
 		}, this));
 		
 		if(evCount != "move"){
@@ -942,61 +947,78 @@ joint.shapes.html.Link = joint.dia.Link.extend({
 
 // Create JointJS elements and add them to the graph as usual.
 // -----------------------------------------------------------
-paper.on('blank:pointerdblclick', function(evt, x, y) { 
-   var el1 = new joint.shapes.html.Element({ 
-    position: { x: pageX, y: pageY }, 
-    size: { width: 200, height: 100 },
-    inPorts: ['in'],
-    outPorts: ['out'],
-	attrs: {
-        '.label': { text: 'Model', 'ref-x': .4, 'ref-y': .2 },
-        rect: { fill: '#2ECC71' },
-        '.inPorts circle': { fill: 'gray' },	
-        '.outPorts circle': { fill: 'gray' }
-    },
-    textarea: ''
-  });
-  
-  graph.addCells([el1]);
-});
+//The first page load
+$(document).ready(function() {
+		paper.on('blank:pointerdblclick', function(evt, x, y) { 
+		   var el1 = new joint.shapes.html.Element({ 
+		    position: { x: pageX, y: pageY }, 
+		    size: { width: 200, height: 100 },
+		    inPorts: ['in'],
+		    outPorts: ['out'],
+			attrs: {
+		        '.label': { text: 'Model', 'ref-x': .4, 'ref-y': .2 },
+		        rect: { fill: '#2ECC71' },
+		        '.inPorts circle': { fill: 'gray' },	
+		        '.outPorts circle': { fill: 'gray' }
+		    },
+		    textarea: ''
+		  });
+		  
+		  graph.addCells([el1]);
+		});
 
 
-var el1 = new joint.shapes.html.Element({ 
-    position: { x: 600, y: 300 }, 
-    size: { width: 200, height: 100 },
-    inPorts: ['in'],
-    outPorts: ['out'],
-	attrs: {
-        '.label': { text: 'Model', 'ref-x': .4, 'ref-y': .2 },
-        rect: { fill: '#2ECC71' },
-        '.inPorts circle': { fill: 'gray' },	
-        '.outPorts circle': { fill: 'gray' }
-    },
-    textarea: ''
+		var el1 = new joint.shapes.html.Element({ 
+		    position: { x: 600, y: 300 }, 
+		    size: { width: 200, height: 100 },
+		    inPorts: ['in'],
+		    outPorts: ['out'],
+			attrs: {
+		        '.label': { text: 'Model', 'ref-x': .4, 'ref-y': .2 },
+		        rect: { fill: '#2ECC71' },
+		        '.inPorts circle': { fill: 'gray' },	
+		        '.outPorts circle': { fill: 'gray' }
+		    },
+		    textarea: ''
+		  });
+		  
+		  graph.addCells([el1]);
+
   });
-  
-  graph.addCells([el1]);
+
+  //Capture the json object of the graph  
+  $(window).click(function captureGraph(){
+		var jso = graph.toJSON();
+        var strjs = JSON.stringify(jso);
+		angular.element($("#saveAsModal")).scope().setValueFunc(strjs); 
+		
+  }  );
+  //var ggg= '{\"cells\":[{\"type\":\"html.Element\",\"size\":{\"width\":200,\"height\":168.26666666666665},\"inPorts\":[\"in\"],\"outPorts\":[\"out\"],\"color\":\"#FFFF94\",\"widthTextarea\":150,\"heightTextarea\":118.26666666666667,\"widthColorEdit\":200,\"heightColorEdit\":168.26666666666665,\"topIn\":163.26666666666665,\"position\":{\"x\":810,\"y\":469},\"angle\":0,\"textarea\":\"dgdgdgd sdfsd sdfsdf sdfsdf sdfsdf sdfsd sdfsd sdfsdf sdfsdf sdfds sdfsd sdfsdf sdfsdf sdfsdf\",\"id\":\"a1d2d598-67a7-4ab4-9357-4dd1215dfdd4\",\"z\":22,\"attrs\":{\"rect\":{\"fill\":\"#2ECC71\"},\".inPorts circle\":{\"fill\":\"gray\"},\".outPorts circle\":{\"fill\":\"gray\"},\".label\":{\"text\":\"Model\",\"ref-x\":0.4,\"ref-y\":0.2},\".inPorts.port0circle\":{\"port\":{\"id\":\"in\",\"type\":\"in\"}},\".inPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100},\".outPorts.port0circle\":{\"port\":{\"id\":\"out\",\"type\":\"out\"}},\".outPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100,\"ref-dy\":100},\".inPorts.port0circle\":{\"port\":{\"id\":\"in\",\"type\":\"in\"}},\".inPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100},\".outPorts.port0circle\":{\"port\":{\"id\":\"out\",\"type\":\"out\"}},\".outPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100,\"ref-dy\":100}}},{\"type\":\"html.myElement\",\"size\":{\"width\":5,\"height\":5},\"inPorts\":[\"in\"],\"outPorts\":[\"out\"],\"color\":\"gray\",\"position\":{\"x\":1074,\"y\":646},\"angle\":0,\"id\":\"a67ce9d9-42d4-4ed4-b1b1-02732ee5f1c9\",\"z\":46,\"attrs\":{\"rect\":{\"fill\":\"#2ECC71\"},\".label\":{\"text\":\"Model\",\"ref-x\":0.4,\"ref-y\":0.2},\".inPorts.port0circle\":{\"port\":{\"id\":\"in\",\"type\":\"in\"}},\".inPorts.port0\":{\"ref\":\"rect\",\"ref-x\":15},\".outPorts.port0circle\":{\"port\":{\"id\":\"out\",\"type\":\"out\"}},\".outPorts.port0\":{\"ref\":\"rect\",\"ref-x\":15,\"ref-dy\":0}}},{\"type\":\"html.Link\",\"vertexAdd\":false,\"vertexMove\":false,\"source\":{\"id\":\"a1d2d598-67a7-4ab4-9357-4dd1215dfdd4\",\"port\":\"out\"},\"target\":{\"id\":\"a67ce9d9-42d4-4ed4-b1b1-02732ee5f1c9\",\"port\":\"in\"},\"id\":\"6d5100b2-1a17-4f50-9cab-ed6f1022db61\",\"z\":47,\"attrs\":{}},{\"type\":\"html.Element\",\"size\":{\"width\":200,\"height\":100},\"inPorts\":[\"in\"],\"outPorts\":[\"out\"],\"color\":\"#D6EB99\",\"widthTextarea\":150,\"heightTextarea\":60,\"widthColorEdit\":200,\"heightColorEdit\":100,\"topIn\":87,\"position\":{\"x\":1013,\"y\":695},\"angle\":0,\"textarea\":\"\",\"id\":\"4ef08f51-43b2-4db4-8dfb-ad0d469cc94c\",\"z\":48,\"attrs\":{\"rect\":{\"fill\":\"#2ECC71\"},\".inPorts circle\":{\"fill\":\"gray\"},\".outPorts circle\":{\"fill\":\"gray\"},\".label\":{\"text\":\"Model\",\"ref-x\":0.4,\"ref-y\":0.2},\".inPorts.port0circle\":{\"port\":{\"id\":\"in\",\"type\":\"in\"}},\".inPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100},\".outPorts.port0circle\":{\"port\":{\"id\":\"out\",\"type\":\"out\"}},\".outPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100,\"ref-dy\":100}}},{\"type\":\"html.Link\",\"source\":{\"id\":\"a67ce9d9-42d4-4ed4-b1b1-02732ee5f1c9\",\"port\":\"out\"},\"target\":{\"id\":\"4ef08f51-43b2-4db4-8dfb-ad0d469cc94c\",\"port\":\"in\"},\"id\":\"9680fe97-a6f4-41c2-b427-6b00f2e4e661\",\"z\":49,\"attrs\":{}}]}';
+  function opMyGraph(myGraph){
+	    graph.clear();
+	    graph.fromJSON(JSON.parse(myGraph));
+  }	
   
 
         var title = '';
 		var countTitleSaveAs = '';
 		var countTitleSave = '';
-        document.getElementById("save-submit").onclick = function() {saveGraph()};
+        //document.getElementById("save-submit").onclick = function() {saveGraph()};
 		
 		function saveGraph(){
 		   
 		   document.getElementById("title-save").value = title;
 		   var jso1 = graph.toJSON();
            var strjs1 = JSON.stringify(jso1);
-		   
+		      
 		   document.getElementById("graph-txt-save").value = strjs1;
 		   document.getElementById("count-save").value = countTitleSave;
 		    
 		}
 		
-		document.getElementById("print").onclick = function() {alert("hi")};
+		//document.getElementById("print").onclick = function() {alert("hi")};
 		
-		document.getElementById("save-as-submit").onclick = function() {saveAsGraph()};
+		//document.getElementById("save-as-submit").onclick = function() {saveAsGraph()};
 
        function saveAsGraph() {
 	       var jso = graph.toJSON();
@@ -1006,12 +1028,13 @@ var el1 = new joint.shapes.html.Element({
 		   //document.getElementById("save-submit").setAttribute('data-target', '#saveModal');
         }
 		
+		
 
        
 	    
 		// Access the json created by open-engine.php for showing the title of graph under open sub-menu
 		
-	    $.getJSON('http://localhost/argument-mapping/open-engine.php', function(data) {
+	    /*$.getJSON('http://localhost/argument-mapping/open-engine.php', function(data) {
             var items1 = [];
 			var items2 = [];
 			$.ajaxSetup({ scriptCharset: "utf-8" , contentType: "application/json; charset=utf-8"});
@@ -1092,16 +1115,16 @@ var el1 = new joint.shapes.html.Element({
 				alert('The graph has been saved.');
 				document.getElementById("save-submit").setAttribute('data-target', '#saveModal');
 			}	
-			
+		*/	
 			//A function for opening a specific graph
-			function openGraph(graphT)
+			/*function openGraph(graphT)
 			{
 			    document.getElementById(graphT).click();
 			   
 			}
 			
 			
-        });
+        });*/
 		
 		/*var tempRe = '';
 			for (var j = 1; j < count +1; j++){
@@ -1120,4 +1143,6 @@ var el1 = new joint.shapes.html.Element({
 			}*/
 		
 	
-});
+//});
+
+

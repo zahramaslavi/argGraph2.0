@@ -1,5 +1,5 @@
 <!--Log in modal-->
-	<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInLabel" aria-hidden="true">
+	<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInLabel" aria-hidden="true" ng-controller="loginCtrl">
 		<div class="modal-dialog">
 			<div class="modal-content">
 			<div class="modal-header">
@@ -7,7 +7,7 @@
 			<h4 class="modal-title" id="logInLabel">Log In</h4>
 			</div>
 			<div class="modal-body">
-				<form name="loginForm" class="pure-form form" ng-submit="loginSubmit()" ng-controller="loginCtrl" novalidate>
+				<form name="loginForm" class="pure-form form" ng-submit="loginSubmit()"  novalidate>
 					<div class="ubcEmail form-group" ng-if="!logedIn()">
 						<input type="email" placeholder="UBC Email" name="ubcEmail" id="emLogin" class="form-control" ng-model="$parent.ubcEmail" ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@ubc.ca$/" required>
 						<span style="color:red" ng-show="loginForm.ubcEmail.$dirty && loginForm.ubcEmail.$invalid">
