@@ -1,5 +1,5 @@
 <!--Save modal window-->
-		<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labeledby="saveLabel" aria-hidden="true">
+		<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labeledby="saveLabel" aria-hidden="true" ng-controller="graphSaveCtrl" ng-click="turnSaveOn()">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -7,19 +7,15 @@
 						<h4 class="modal-title" id="saveLabel"></h4>
 					</div>
 					<div class="modal-body">
-						<form name="save-form" action="save-engine.php" method="POST" class="pure-form" id = "form-save"; >
+						<form name="save-form" class="pure-form" ng-submit="graphSaveSubmit()" novalidate>
 							<div>
-								<p id= 'save-p'>Please click on save to save the graph:</p>
-								<input type="hidden" placeholder="Title" name="title" id="title-save">
-							</div>
-							<div>
-								<input type="hidden" placeholder="Graph" name="graph" id="graph-txt-save">
-							</div>
-							<div>
-								<input type="hidden" placeholder="Count" name="count" id="count-save">
-							</div>
-							<!--<input type="submit" value="Save" id = "save-submit">-->
-							<button type="submit" class="btn btn-info btn-lg" value="Save">Save</button>
+								<span style="color:blue" ng-if="graphSaved==false">Please click on save to save the graph:</span>
+							</div> 
+							
+
+							<button type="submit" class="btn btn-info btn-lg" id="saveSubmit" ng-if="graphSaved==false">Save</button>
+
+							<span style="color:green" ng-if="graphSaved==true"> You have successfully saved your graph!</span>
 						</form>
 					</div>
 				</div>

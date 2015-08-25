@@ -10,17 +10,18 @@
 				<span class = "icon-bar"></span>
 			</button>
 			<ul class = "nav navbar-brand navbar-left"><a calss = "btn btn-success btn-lg">Whately</a></ul>
+			<ul class = "nav navbar-brand navbar-left"><h5 calss = "btn btn-success btn-xs">{{openGraphTitle}}</h5></ul>
 		   </div>
 			<div class ="collapse navbar-collapse navHeaderCollapse">
 			<!--<ul class = "nav navbar-nav navbar-left"><li><a calss = "btn btn-default btn-lg" href="#">Whatly</a></li></ul>-->
 	        <ul class = "nav navbar-nav navbar-right">
 	            <li class = "active dropdown" ng-show="userLogMessage()!=''"><a href="#" id ='file' class= "dropdown-toggle" data-toggle = "dropdown">File <b class = "caret"></b></a>
 			        <ul class = "dropdown-menu">
-		                <li><a href="new-engine.php" id='new'>New</a></li>
+		                <li><a href="#" id='new' ng-click="showNewGraph()">New</a></li>
 			            <li class = "dropdown"><a href="#" id='open' class = "btn-default" data-toggle = "modal" data-target="#openModal">Graphs</a></li>
 			            <li><a href="#" class="btn-default" data-toggle="modal" data-target="#saveAsModal" id = "saveas">Save as</a></li>
 						<li><a href="#" class="btn-default" data-toggle="modal" data-target="#saveModal" id="save-submit">Save</a></li>
-						 <li><a href="#" id='print'>Print</a></li>
+						 <!-- <li><a href="#" id='print'>Print</a></li> -->
 				    </ul>
 		        </li>
 			    <li class ="dropdown"><a href="#" id = 'language' class = "dropdown-toggle" data-toggle = "dropdown">Language <b class = "caret"></b></a>

@@ -16,8 +16,8 @@
 							</thead>
 							<tbody id= "graphList">
 								<tr ng-repeat="graphs in userGraphs" id = "open-click">
-								    <td><a href="#" class = "btn-default">{{graphs.title}}</a></td>
-								    <td><a href = "#" class = "btn-default"><span class="glyphicon glyphicon-trash"></span></a></td>
+								    <td><a href="#" class = "btn-default" ng-click="openGraph(graphs.title, graphs.id)">{{graphs.title}}</a></td>
+								    <td><a href = "#" class = "btn-default" ng-click="remGraph(graphs.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
 								</tr>
 							</tbody>
 						</table>
