@@ -4,7 +4,8 @@ mainApp.factory('sharedProperties', function($cookies) {
         var userId;
         var userGraphList={};
         $cookies.graphTitle = "";
-
+        //$cookies.language = "1";
+        var languageData;
         return {
             getUserLog: function() {
                 return $cookies.logObject;
@@ -41,8 +42,52 @@ mainApp.factory('sharedProperties', function($cookies) {
             setOpenGraphTitle: function(value){
                $cookies.graphTitle = value;
             },
+            getLanguage: function(){
+               return $cookies.language;
+            },
+            setLanguage: function(value){
+               $cookies.language = value;
+            },
+            getLanguageData: function(){
+               return languageData;
+            },
+            setLanguageData: function(value){
+               languageData = value;
+            },
         };
     });
+
+mainApp.factory('loadLanguage', function($http) { //, $q, $rootScope, , $timeout
+        
+    	return {
+        requestLanguage: function(id)
+		    {
+		    	var myUrl = 'http://argGraph.localhost/language/' + id;
+				var promise = $http({
+				    method: 'GET',
+				    url: myUrl,
+				    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				    transformRequest: function(obj) {
+				        var str = [];
+				        for(var p in obj)
+				        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+				        return str.join("&");
+				    }
+				});
+
+				promise.success(function(data, status, headers, config) {
+					return data;
+					languageData = data;
+				});
+				
+				promise.error(function(data, status, headers, config) {
+					return "failure message: " + JSON.stringify({data: data});
+				});
+			    return promise;
+		    },
+    };
+});
+
 
 mainApp.factory('loadGraphs', function($http) { //, $q, $rootScope, , $timeout
      
@@ -94,8 +139,6 @@ mainApp.factory('loadGraphs', function($http) { //, $q, $rootScope, , $timeout
 
     	var userGraphs = {
     async: function(myUserId){
-    	 //function async(myUserId){
-        //var deferred = $q.defer();
         var dataObj = {
 					userId : myUserId
 				};
@@ -112,7 +155,6 @@ mainApp.factory('loadGraphs', function($http) { //, $q, $rootScope, , $timeout
 		    },
             'data': dataObj
         }).then(function(response,status, headers, config){
-            //console.log(response);
         	return response.data;
         });
         return promise;
@@ -144,7 +186,6 @@ mainApp.factory('saveGraph', function($http) {
 				    },
 				    'data': dataObjGraph
 				}).then(function(response,status, headers, config){
-			            //console.log(response);
 			        	return response.data;
 			        });
 			        return promise;
@@ -169,7 +210,6 @@ mainApp.factory('saveGraph', function($http) {
 				    },
 				    'data': dataObjGraph
 				}).then(function(response,status, headers, config){
-			            //console.log(response);
 			        	return response.data;
 			        });
 			        return promise;
@@ -211,7 +251,6 @@ mainApp.factory('removeGraph', function($http) {
 				promise.success(function(data, status, headers, config) {
 					graphRemoved = true;
 					return graphRemoved;
-					//console.log(JSON.stringify({data: data}));
 				});
 				
 				promise.error(function(data, status, headers, config) {
@@ -250,7 +289,8 @@ mainApp.factory('user', function($http) {
 				});
 				
 				promise.error(function(data, status, headers, config) {
-					return "failure message: " + JSON.stringify({data: data});
+					//return "failure message: " + JSON.stringify({data: data});
+					return data;
 				});
 			    return promise;
 		    }, 
@@ -290,34 +330,65 @@ mainApp.factory('user', function($http) {
 
 
 //The login controller
-mainApp.controller('loginCtrl', function($scope, $http, sharedProperties, user) {
+mainApp.controller('loginCtrl', function($scope, $http, $interval, sharedProperties, user) {
+
+	$scope.userLogError=false;
 
     $scope.loginSubmit = function() {
 
     	user.userLogin($scope.ubcEmail, $scope.password).then(function(results){
+    		if(results.data.data!=false){
         	$scope.userLogMessage = results.data.data;
 			sharedProperties.setUserLog($scope.userLogMessage.username);
 		    sharedProperties.setUserId($scope.userLogMessage.id);
-    	});
-		
-		$scope.ubcEmail='';
-		$scope.password='';
 
-		$scope.loginForm.ubcEmail.$dirty = false;
-		$scope.loginForm.password.$dirty = false;
+		    $scope.ubcEmail='';
+			$scope.password='';
+
+			$scope.loginForm.ubcEmail.$dirty = false;
+			$scope.loginForm.password.$dirty = false;
+
+			$scope.userLogError=false;
+				}
+			else{
+					$scope.userLogError=true;
+				}
+    	});
+
       };
 		 
 	  $scope.logedIn = function () {
 	      return sharedProperties.getUserLog();
 	    }
+    
+
+    //Language///
+	  $interval( function(){ 
+    	$scope.langId = sharedProperties.getLanguage();
+    }, 2000);
+    
+    $scope.$watch("langId", function() {
+		if($scope.langId!="") {
+				$scope.regLang = sharedProperties.getLanguageData();
+				      
+				} 
+	    });
+
+	$scope.init = function () {
+		$scope.regLang = sharedProperties.getLanguageData();
+		
+	}  
 
 					
 });
 
 
-mainApp.controller('checkLogCtrl', function($scope, $interval, sharedProperties, loadGraphs, drawGraph) {
+mainApp.controller('navbarCtrl', function($scope, $interval, sharedProperties, loadGraphs, drawGraph, loadLanguage) {
 	$scope.openGraphTitle = "";
-	
+	//Start the page by english
+    $scope.lId = "1";
+
+    //Check for opened graphs(for title) every one second 
     $interval( function(){ 
     	$scope.openGraphTitle = sharedProperties.getOpenGraphTitle();
     }, 1000);
@@ -333,24 +404,60 @@ mainApp.controller('checkLogCtrl', function($scope, $interval, sharedProperties,
 		{
 			sharedProperties.setUserLogOut();
 			sharedProperties.setUserId("");
+			//clear the drawed graph and have a new start page
+			drawGraph.newGraph();
+		    sharedProperties.setOpenGraphTitle("");
 		}
 
 	$scope.showNewGraph = function(){
 		drawGraph.newGraph();
 		sharedProperties.setOpenGraphTitle("");
-	}		
-		
+	}
+	
+    //`id`, `file`, `new`, `graphs`, `saveAs`, `save`, `graphsModHeader`, 
+// `graphsModOpen`, `graphsModRemove`, `saveAsModHeader`, `saveAsModPlease`,
+//`saveAsModTitlePh`, `saveAsModButton`, `saveAsModSuccessMes`, `saveAsModTitRequired`, 
+//`saveAsModLongerTitle`, `saveAsModShorterTitle`, `saveModPlease`, `saveModButton`,
+//`saveModeSuccessMes`, `language`, `english`, `mandarin`, `spanish`, `french`, `watchDemo`, 
+//`about`, `hiUser`, `logOut`, `login`, `register`, `loginModHeader`, `loginModEmailPh`,
+//`loginModPasswordPh`, `loginModButton`, `loginModEmailRequired`, `loginModInvalidEmail`,
+  //`loginModUBCEmReq`, `loginModPasswordReq`, `loginModPasswordLonger`, 
+  //`loginModPasswordShorter`, `LoginModSuccessMes`, `regModHeader`, `regModFullnamePh`,
+  //`regModUsernamePh`, `regModEmailPh`, `regModPasswordPh`, `regModPassConfirmPh`,
+  //`regModButton`, `regModFullnameReq`, `regModUsernameReq`, `regModEmailReq`,
+   //`regModInvalidEmail`, `regModUBCEmailReq`, `regModPasswordReq`, `regModPasswordLonger`,             
+ //`regModPasswordShorter`, `regModPasswordConfReq`, `regModePasswordConfLonger`,
+//`regModPasswordConfShorter`, `regModSuccessMes`, `startWriting`, `logModErrMes`, 
+//`wantedLanguage`
+	$scope.changeLanguage = function(languageId){
+		languageRequest(languageId);
+	}
+	
+	//get lId cookie and request language
+	$scope.init = function () {
+		$scope.lId = sharedProperties.getLanguage();
+		languageRequest($scope.lId);
+	}
+	//The function for requesting language
+	var languageRequest = function(langId){
+    	loadLanguage.requestLanguage(langId).then(function(results){
+			sharedProperties.setLanguage(langId);
+			sharedProperties.setLanguageData(results.data.data);
+			$scope.navbar = results.data.data;
+		});
+	}
+
+	languageRequest($scope.lId);
 });
 
 //Register controller
-mainApp.controller('registerCtrl', function($scope, $http, user){
+mainApp.controller('registerCtrl', function($scope, $http, $interval, user, sharedProperties){
 	
 	$scope.registered = false;
   
     $scope.registerSubmit = function() {
         user.userRegister($scope.fullNameReg, $scope.usernameReg, $scope.ubcEmailReg, $scope.passwordReg).then(function(results){
         	$scope.message = results;
-			console.log(JSON.stringify({data: results}));
 			$scope.registered = true;
         });
 
@@ -369,7 +476,27 @@ mainApp.controller('registerCtrl', function($scope, $http, user){
         $scope.turnRegisterOn = function(){
         	$scope.registered = false;
         }
-	};				
+	};
+    //Language///
+	$interval( function(){ 
+    	$scope.langId = sharedProperties.getLanguage();
+    }, 2000);
+    
+	
+
+    $scope.$watch("langId", function() {
+		if($scope.langId!="") {
+				$scope.regLang = sharedProperties.getLanguageData();
+				      
+				} 
+	    });
+
+	$scope.init = function () {
+		$scope.regLang = sharedProperties.getLanguageData();
+		
+	}
+	
+
 });
 
 mainApp.controller('graphSaveAsCtrl', function($scope, $http, $interval, saveGraph, sharedProperties, loadGraphs) {
@@ -393,7 +520,6 @@ mainApp.controller('graphSaveAsCtrl', function($scope, $http, $interval, saveGra
 		saveGraph.saveAsMyGraph($scope.userId, $scope.graph, $scope.formData.graphTitle).then(function(results){
 			$scope.graphSavedAs = true;
 			$scope.formData.graphTitle="";
-	        console.log(results);
 			loadGraphs.async($scope.userId).then(function(results){
 		    			sharedProperties.setUserGraphs(results.data);
 	    			});
@@ -403,7 +529,26 @@ mainApp.controller('graphSaveAsCtrl', function($scope, $http, $interval, saveGra
     $scope.turnSaveAsOn = function(){
     	$scope.graphSavedAs = false;
     	 
-    } 
+    }
+
+     //Language///
+	$interval( function(){ 
+    	$scope.langId = sharedProperties.getLanguage();
+    }, 2000);
+    
+	
+
+    $scope.$watch("langId", function() {
+		if($scope.langId!="") {
+				$scope.regLang = sharedProperties.getLanguageData();
+				      
+				} 
+	    });
+
+	$scope.init = function () {
+		$scope.regLang = sharedProperties.getLanguageData();
+		
+	} 
 
 
 });
@@ -427,17 +572,41 @@ mainApp.controller('graphSaveCtrl', function($scope, $http, $interval, saveGraph
 	
 	$scope.graphSaveSubmit = function()
     {
-		saveGraph.saveMyGraph($scope.graphId,  $scope.userId, $scope.graph, $scope.graphTitle).then(function(results){
-			$scope.graphSaved = true;
-			loadGraphs.async($scope.userId).then(function(results){
-		    			sharedProperties.setUserGraphs(results.data);
-	    			});
-		});
+    	if(sharedProperties.getOpenGraphTitle()==""){
+    		$scope.newGraphOpened = true;
+    	}else{
+			saveGraph.saveMyGraph($scope.graphId,  $scope.userId, $scope.graph, $scope.graphTitle).then(function(results){
+				$scope.graphSaved = true;
+				loadGraphs.async($scope.userId).then(function(results){
+			    			sharedProperties.setUserGraphs(results.data);
+		    			});
+			});
+		}
     }
 	
     $scope.turnSaveOn = function(){
     	 $scope.graphSaved = false;
+    	 $scope.newGraphOpened = false;
     } 
+
+    //Language///
+	$interval( function(){ 
+    	$scope.langId = sharedProperties.getLanguage();
+    }, 2000);
+    
+	
+
+    $scope.$watch("langId", function() {
+		if($scope.langId!="") {
+				$scope.regLang = sharedProperties.getLanguageData();
+				      
+				} 
+	    });
+
+	$scope.init = function () {
+		$scope.regLang = sharedProperties.getLanguageData();
+		
+	}
 
 
 });
@@ -481,10 +650,28 @@ mainApp.controller('graphOpenCtrl', function($scope, $http, $interval, sharedPro
 
     $scope.remGraph = function(id){
     	removeGraph.removeMyGraph(id).then(function(results){
-    		console.log(results);
     		graphList($scope.userId);
     	});
         
     }
+
+    //Language///
+    $interval( function(){ 
+    	$scope.langId = sharedProperties.getLanguage();
+    }, 2000);
+    
+	
+
+    $scope.$watch("langId", function() {
+		if($scope.langId!="") {
+				$scope.regLang = sharedProperties.getLanguageData();
+				      
+				} 
+	    });
+
+	$scope.init = function () {
+		$scope.regLang = sharedProperties.getLanguageData();
+		
+	}
 
 });

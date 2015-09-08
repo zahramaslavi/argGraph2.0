@@ -33,25 +33,39 @@
    position: absolute;
    background: transparent;
    /* Make sure events are propagated to the JointJS element so, e.g. dragging works.*/
-   /* pointer-events: none; 
-   -webkit-user-select: none; */
+    pointer-events: none; 
+   -webkit-user-select: all;
+   -moz-user-select: all;
+   -ms-user-select: all; 
    border: none;
    box-sizing: border-box;
-   z-index: 2;
-   
+   z-index: 1000;
 }
 
 .color-edit {
    position: absolute;
    top: 0px;
    left: 0px;
-   border: none;
+   border: solid 1px transparent;
    width: 200px;
-   height: 100px;
    background-color: #ffffff;
    -webkit-box-shadow: 0 0 20px #B2B2B2, inset 0 0 5px #E6E6E6;
-	-moz-box-shadow: 0 0 20px #B2B2B2, inset 0 0 5px #E6E6E6;
-	box-shadow: 0 0 20px #B2B2B2, inset 0 0 5px #E6E6E6;
+	 -moz-box-shadow: 0 0 20px #B2B2B2, inset 0 0 5px #E6E6E6;
+	 box-shadow: 0 0 20px #B2B2B2, inset 0 0 5px #E6E6E6;
+   padding: 15px 15px;
+   display:inline-block;
+   min-height: 100px;
+   width: 200px;
+   text-align:justify;
+   font-family: Arial, Helvetica, sans-serif;
+   font-style: normal;
+   font-size: 14px;
+   outline:0 !important;
+   -webkit-appearance:none;
+   pointer-events: visible; 
+   -webkit-user-select: all;
+   -moz-user-select: all;
+   -ms-user-select: all; 
 }
 
 /* Enable interacting with inputs only. */
@@ -198,12 +212,12 @@
 }
 
 
-.html-element textarea {
+/*.html-element textarea {
    position: fixed;
    top: 4px;
    left: 4px;
    height: 80px;
-   width: 170px;
+   width: 180px;
    border: 1px solid transparent;
    color: #333;
    background: transparent;
@@ -218,7 +232,34 @@
    -webkit-appearance:none;
    opacity:1;
    resize: none;
-}
+}*/
+
+/*.html-element #textarea {
+   position: fixed;
+   top: 4px;
+   left: 4px;
+   width: 180px;
+   border: 1px solid transparent;
+   color: #333;
+   background: blue;
+   
+   font-family: Arial, Helvetica, sans-serif;
+   font-style: normal;
+   font-size: 14px;
+   overflow: hidden;
+   text-align:justify;
+   outline:0 !important;
+   -webkit-appearance:none;
+   opacity:1;
+   resize: none;
+  
+   padding: 5px;
+   margin: 5px;
+   display:inline-block;
+    border: solid 1px #000;
+    min-height: 80px;
+    width: 180px;
+}*/
 
 
 

@@ -1,67 +1,4 @@
 //$(document).ready(function() {
-
-  
-
-   // The code for reading cookies and replacing login and register with hi-user and log-out 
-	
-    
-   /* log = readCookie('log-statue-cookie');
-	user = readCookie('log-in-cookie');
-    var logInError = readCookie('log-in-error-cookie');
-	var registerMessage = readCookie('register-Message-cookie');
-	var removeGraph = readCookie('remove-graph-cookie');
-	if ( logInError == 1){ alert('Please enter a correct username or password.');}
-	if ( registerMessage == 1){ alert('Now you can log in to your account.');} 
-	if ( registerMessage == 0){alert('It seems you have been registered by the same e-mail or username.');}
-	if ( removeGraph == 1){alert('The graph has been removed from the database.');}*/
-	 
-	//user = decodeURIComponent(escape(user));
-	/*user = decodeURIComponent(user);
-	
-	if(log==1){
-			        var myNode = document.getElementById("log");
-                    while (myNode.firstChild) {
-                        myNode.removeChild(myNode.firstChild);   
-                        }
-						
-					var myNode = document.getElementById("reg");
-                    while (myNode.firstChild) {
-                        myNode.removeChild(myNode.firstChild);
-					        }		
-			
-					var paraHi = document.createElement("a");
-					paraHi.setAttribute('id', 'hiUser'); 
-					paraHi.setAttribute('class', 'btn btn-lg');
-					var nodeHi;
-					nodeHi = document.createTextNode(user);
-					paraHi.appendChild(nodeHi);
-
-					var elementHi = document.getElementById("log");
-					elementHi.appendChild(paraHi);
-					
-					//$('#hiUser').append('<span class="glyphicon glyphicon-user"></span>');
-					
-					var para = document.createElement("a");
-					para.setAttribute('href', 'log-out-engine.php');
-					para.setAttribute('id', 'logOut');
-					para.setAttribute('class', 'btn btn-lg');
-					var node;
-					if(language=='en') node = document.createTextNode("Log out");
-					if(language=='man') node = document.createTextNode("注销");
-					if(language=='span') node = document.createTextNode("finalizar la sesión");
-					if(language=='frc') node = document.createTextNode("déconnecter");
-					para.appendChild(node);
-
-					var element = document.getElementById("reg");
-					element.appendChild(para);
-					document.getElementById("save-as-submit").setAttribute('data-target', '#saveAsModal');
-					document.getElementById("save-submit").setAttribute('data-target', '#saveRejectModal');
-					
-					//document.getElementById("log").style.marginLeft = "800px";
-					
-    }	*/
-	//The end of the code for cookies---
-
 	//Codes for the window	
 	var pageX; 
 	var pageY; //Declare these globally
@@ -70,16 +7,11 @@
 		pageY = e.clientY;
 	});
 	
+	//Prevent the links from interactivity
 	function linkInteractiveFalse(link) {
 		var linkView = paper.findViewByModel(link);
 		linkView.options.interactive = false;	
 	}
-		
-	$('#saveas').click( 
-		function(){
-			console.log("click");
-		});					
-	//document.onscroll = function() { pageY += 1;};
 	
     var color = 'blue';
 	
@@ -93,91 +25,63 @@
 		gridSize: 1,
         model: graph
     });
-    
-	//Resize while scroll down
-	/*var scrollXOld;
-	var scrollYOld;
-	var scrollXNew;
-	var scrollYNew;
-	var winWidthOld;
-	var	winHeightOld;
-	var winWidthNew;
-	var	winHeightNew;*/
-	/*$(window).scroll(function(){
-		
-		scrollXOld = scrollXNew;
-		scrollYOld = scrollYNew;
-		scrollXNew = window.pageXOffset;
-		scrollYNew = window.pageYOffset;
-		winWidthOld = document.body.clientWidth;
-		winHeightOld = document.body.clientHeight;
-		winWidthNew = winWidthOld + scrollXNew - scrollXOld;
-		winHeightNew = winHeightOld + scrollYNew - scrollYOld;
-		console.log("scrollXOld: " + scrollXOld);
-		console.log("scrollYOld: " + scrollYOld);
-		console.log("scrollXNew: " + scrollXNew);
-		console.log("scrollYNew:" + scrollYNew);
-		console.log("winWidthOld: " + winWidthOld);
-		console.log("winHeightOld: " + winHeightOld);
-		console.log("winWidthNew: " + winWidthNew);
-		console.log("winHeightNew: " + winHeightNew);
-        if (scrollYOld < scrollYNew){
-			paper.setDimensions(winWidthNew, winHeightNew);
-		}
-        if (scrollXOld < scrollXNew){
-			paper.setDimensions(winWidthNew, winHeightNew);
-		}		
-	});*/
-	
-	/*var paperDrag;
-		$(document).on('mousedown', function(){
-		//get the click point coordinates
-			var startDragX = pageX;
-			var startDragY= pageY;
-			//Declaring the drag event on the paper
-			paperDrag = "move";
-			
-                // if (paperDrag = "move"){
-					// $(document).on('mousemove', function(){
-						
-					// });
-			    // } 
-				
-			    if(paperDrag == "move"){
-					$(document).on('mouseup', function(){
-						paperDrag = "up";
-						var windowX = window.innerWidth;
-						var windowY = window.innerHeight;
-						var endDragX = pageX;
-			            var endDragY= pageY;
-						var addSizeX = endDragX - startDragX;
-						var addSizeY = endDragY - startDragY;
-						var newSizeX = windowX + addSizeX; 
-						var newSizeY = windowY + addSizeY; 
-						
-						if (addSizeX > 0){
-							paper.setDimensions(newSizeX, windowY);
-						}
-						
-						if (addSizeY > 0){
-							paper.setDimensions(windowX, newSizeY);
-						}
-						
-						window.scrollBy(addSizeX, addSizeY);
-						
-					});
-			    }
+
+    function dragDropMyElement(myElement, modelHTML){
+
+		modelHTML.on('mousedown', _.bind(function(cellView, evt,x, y) {
+			var x1 = pageX;
+			var y1 = pageY;
 			   
-		});
+					modelHTML.on('mousemove', _.bind(function(cellView, evt,x, y) {	
+						x2 = pageX;
+						y2 = pageY;
+						var moveX = x2 - x1;
+						var moveY = y2 - y1; 
+						x1 = x2;
+						y1 = y2;
+						
+						myElement.translate(moveX, moveY);
+						
+					}, this));
+					$(document).on('mousemove', function(){
+						x2 = pageX;
+						y2 = pageY;
+						var moveX = x2 - x1;
+						var moveY = y2 - y1; 
+						x1 = x2;
+						y1 = y2;
+						
+						myElement.translate(moveX, moveY);
+					});
+
+					modelHTML.on('mouseup', _.bind(function(cellView, evt,x, y) {	
+						modelHTML.off('mousemove');
+						$(document).off('mousemove');
+					}, this));
+
+					paper.on('blank:pointerup', _.bind(function(cellView, evt,x, y) { 
+						modelHTML.off('mousemove');
+						$(document).off('mousemove');
+					}, this));
+		}, this));
+    }
+
+
+    var paperWidth = 2000;
+	var	paperHeight = 1500;
+    function paperExpand(){
+
+		paper.on('blank:pointerdblclick', _.bind(function(cellView, evt,x, y) {
+					
+			paperWidth = paperWidth + 100;
+			paperHeight = paperHeight + 100;
+					
+			paper.setDimensions(paperWidth, paperHeight);
+					
+		}, this));
+    }
+    
 		
-		// if(paperDrag != "move"){
-			// $(document).off('mousemove');		
-		// }
-		
-		if(paperDrag != "move"){
-			$(document).off('mouseup')	
-		}*/
-	
 	
     // Create a custom element model. For creating a model with some buttons and other html tags we have to use  joint.shapes.html
     // ------------------------
@@ -194,12 +98,12 @@
             size: { width: 200, height: 100 },
             inPorts: [],
             outPorts: [],
-			color: '#94DBFF',
-			widthTextarea: 150,
-			heightTextarea: 60,
+			color: 'white',
+			widthTextarea: 200,
+			heightTextarea: 100,
 			widthColorEdit: 200,
 			heightColorEdit: 100,
-			topIn: 87,
+			//colorEdit: "Start writing...",
             attrs: {
                 '.': { magnet: true},
                 rect: {
@@ -232,9 +136,7 @@
             return attrs;
         }
     }));
-    
-		
-
+   
    // Create a custom view for that element that displays an HTML div above it.
  //--------------------
    
@@ -259,8 +161,7 @@
 			'<i class="glyphicon glyphicon-trash" style="color:#808080"></i>',
 			'</button>',
 			'</div>',
-			'<label class="color-edit effect-color-edit"></label>',
-            '<textarea class="txt" type="text" id ="txarea" placeholder="Start writing"></textarea>',
+			'<div class="color-edit effect-color-edit" contentEditable="true"></div>',
             '</div>'
         ].join(''),
     //Here we start put some code for the html tags above so they function properly on every element we instantiate from the predefined model
@@ -270,95 +171,61 @@
 
         this.$box = $(_.template(this.template)());
         // Prevent paper from handling pointerdown.
-        this.$box.find('textarea').on('mousedown click', function(evt) { evt.stopPropagation(); });
+        
+		this.$box.find('.color-edit').on('mousedown click', function(evt) { evt.stopPropagation(); });
 		
 		
         
-		//This is for measuring the size of the box to be able resize it later
+		//This is for measuring the size of the box to be able resize it later 
+        //Also it is needed for remove box action
         this.$ruler = $('<label>', { style: 'visibility: hidden; white-space: pre' });
         $(document.body).append(this.$ruler);
 		
-		
+		var val;
 		
         // This is an example of reacting on the input change and storing the input data in the cell model and resizing the element.
-        this.$box.find('textarea').on('input', _.bind(function(evt) {
-
-            var val = $(evt.target).val();
-            this.model.set('textarea', val);
-			
-
-            this.$ruler.html(val);
-            var width = this.$ruler[0].offsetWidth;
-            var height = this.$ruler[0].offsetHeight;
-			var area = width * height;
-			height = area/150;
-			width = 150;
-			if((area > 9000)){
-            this.model.set('size', { width: width + 50 , height: height + 80 });
-			
-			this.$box.find('textarea').css({ width: width  , height: height + 30});
-			this.model.set('widthTextarea', width);
-			this.model.set('heightTextarea', height + 30);
-			
-			this.$box.find('.color-edit').css({width: width + 50 , height: height + 80});
-			this.model.set('widthColorEdit', width + 50);
-			this.model.set('heightColorEdit', height + 80);
-			
-			this.$box.find('.in').css({ top: height + 75});
-			this.model.set('topIn', height + 75);
-            }
-			
-			
+       	this.$box.find('.color-edit').on('input click mousedown mousemove mouseup', _.bind(function(evt) {
+            val = this.$box.find('.color-edit').text();
         }, this));
-		
-		
-		
-       // this.$box.find('.color-edit').css({background : this.model.get('color')});
-		this.$box.find('textarea').css({ width: this.model.get('widthTextarea')  , height: this.model.get('heightTextarea')});
-		this.$box.find('.color-edit').css({width: this.model.get('widthColorEdit')  , height: this.model.get('heightColorEdit')});
-		//this.$box.find('.in').css({ top: this.model.get('topIn')});
-		//this.$box.find('textarea').text(this.model.get('span'));
-        
+
+        //Save the value inside val into the model once loose focus on the box
+		this.$box.find('.color-edit').on('blur', _.bind(function(evt) {
+			this.model.set('colorEdit', val);
+		}, this));
+
+	
+		//Capturing the color saved on the model when you retrieve the graph again
+        this.$box.find('.color-edit').css({background : this.model.get('color')});
+		//Drag and drop behaviour
+        dragDropMyElement(this.model, this.$box.find('.color-edit'));
+
 		//For turning the box to green
 		this.$box.find('.green').on('click', _.bind(function() {
-		
-		    
-			this.$box.find('.color-edit').css({background : '#D6EB99'});
-			// this.$box.find('.btn-color').css({background : '#D6EB99'});
-			this.model.set('color', '#D6EB99');
-		
+			var color = '#D6EB99';
+			this.$box.find('.color-edit').css({background : color});
+			this.model.set('color', color);
 		}, this));
-		
 		
 		//For turning the box to red
 		this.$box.find('.red').on('click', _.bind(function() {
-		
-		    this.$box.find('.color-edit').css({ background: '#F0B2B2'});
-			// this.$box.find('.btn-color').css({ background: '#F0B2B2'});
-			this.model.set('color', '#F0B2B2');
-			
-		
+			var color = '#F0B2B2';
+		    this.$box.find('.color-edit').css({ background: color});
+			this.model.set('color', color);
 		}, this));
 		
 		//For turning the box to yellow
 		this.$box.find('.yellow').on('click', _.bind(function() {
-		
-		    this.$box.find('.color-edit').css({ background: '#FFFF94'});
-			// this.$box.find('.btn-color').css({ background: '#FFFF94'});
-			this.model.set('color', '#FFFF94');
-		
+			var color = '#FFFF94';
+		    this.$box.find('.color-edit').css({ background: color});
+			this.model.set('color', color);
 		}, this));
 		
-		
-		
-			
-		this.$box.find('textarea').on('click', _.bind(function() {
+        //Animation
+		this.$box.find('.color-edit').on('click', _.bind(function() {
 				this.$box.find('.btn-color').css({ webkitAnimationName:"buttons-on" });
 				this.$box.find('.btn-color').css({ animationName: "buttons-on" });
-				
 		}, this));
-		
-	
+
 		paper.on('blank:pointerclick', _.bind(function() {
 			
 			var animWeb = this.$box.find('.btn-color').css("webkitAnimationName");
@@ -366,13 +233,12 @@
 			
 			 if((animWeb == "buttons-on") && (anim == "buttons-on")){
 			
-				var textareaX = this.$box.find('textarea').offset().left;
-				var textareaY = this.$box.find('textarea').offset().top;
+				var textareaX = this.$box.find('.color-edit').offset().left;
+				var textareaY = this.$box.find('.color-edit').offset().top;
 				var pageYNow = pageY -51;
 				var disX = textareaX - pageX;
 				var disY = textareaY - pageYNow;
-				console.log("disx Blank " + disX);
-			    console.log("disy Blank " + disY);
+				
 				
 				if ((disX > 10) || (disX < -227) || (disY > 226) || (disY < 73)){
 					 
@@ -391,15 +257,12 @@
 			
 			this.$box.find('.btn-color').css({ webkitAnimationName:"buttons-on" });
 			this.$box.find('.btn-color').css({ animationName: "buttons-on" });
-			var textareaX = this.$box.find('textarea').offset().left;
-			var textareaY = this.$box.find('textarea').offset().top;
+			var textareaX = this.$box.find('.color-edit').offset().left;
+			var textareaY = this.$box.find('.color-edit').offset().top;
 			var pageYNow = pageY -51;
 			var disX = textareaX - pageX;
 			var disY = textareaY - pageYNow;
-			console.log("pagex " + pageX);
-			console.log("pagey " + pageYNow);
-			console.log("disx " +disX);
-			console.log("disy " + disY);
+			
 			
 			if ((disX > 10) || (disX < -227) || (disY > 226) || (disY < 73)){
 				 
@@ -412,7 +275,8 @@
 			
 		}, this));
 		
-		//count events
+		//Drag and drop on create button
+		//count events if it is move
 		var evCount;
 		this.$box.find('.create').on('mousedown', _.bind(function(cellView, evt,x, y) {
 			
@@ -426,10 +290,7 @@
 				attrs: { rect: { fill: 'white', stroke: 'white'} }
 			});
 			graph.addCells([rect]);
-			
-			//window.pageXOffset
-            console.log(window.pageYOffset);			
-			
+					
 			//count events
 			evCount = "move";
 			
@@ -453,17 +314,9 @@
 					});
 			    } 
 				
-			
-			
 			    if(evCount == "move"){
 					paper.on('blank:pointerup', _.bind(function(cellView, evt,x, y) {
-						
-						// var rect2 = new joint.shapes.basic.Rect({
-						// position: { x: pageX-100, y: pageY-20 },
-						// size: { width: 200, height: 100 },
-						// attrs: { rect2: { fill: 'white', stroke: 'white'} }
-						// });
-						// graph.addCells([rect2]);
+
 						rect.remove();
 						
 						var pageXNow = pageX + window.pageXOffset;
@@ -503,7 +356,7 @@
 								'.inPorts circle': { fill: 'gray', magnet: 'passive' },
 								'.outPorts circle': { fill: 'gray', magnet: 'passive' }
 							},
-							textarea: ''
+							 colorEdit: 'Start writing...'
 						});
 					
 						var link2 = new joint.shapes.html.Link1({
@@ -553,7 +406,6 @@
      render: function() {
         joint.dia.ElementView.prototype.render.apply(this, arguments);
         this.paper.$el.prepend(this.$box);
-        // this.paper.$el.mousemove(this.onMouseMove.bind(this)), this.paper.$el.mouseup(this.onMouseUp.bind(this));
         this.updateBox();
         return this;
     },
@@ -586,20 +438,11 @@
         // Set the position and dimension of the box so that it covers the JointJS element.
         var bbox = this.model.getBBox();
         // Example of updating the HTML with a data stored in the cell model.
-         
-        this.$box.find('span').text(this.model.get('textarea'));
-		this.$box.find('textarea').text(this.model.get('textarea'));
-		
-		/*if(this.$box.find('span').text == '' ) {
-		    this.$box.find('textarea').text('Start writing');
-		}
-		
-		if(!(this.$box.find('span').text == '' )){
-		this.$box.find('textarea').text(this.model.get('textarea'));
-		    }   */
-		
-		//this.$box.find('textarea').text(this.model.get('span'));
-		
+        /*if(this.model.get('colorEdit')==""){
+        	this.$box.find('.color-edit').text("Start writing...");
+        }else{*/
+			this.$box.find('.color-edit').text(this.model.get('colorEdit'));
+		//}
         this.$box.css({ width: bbox.width, height: bbox.height, left: bbox.x, top: bbox.y, transform: 'rotate(' + (this.model.get('angle') || 0) + 'deg)' });
     },
     removeBox: function(evt) {
@@ -688,9 +531,11 @@ joint.shapes.html.myElement = joint.shapes.basic.Generic.extend(_.extend({}, joi
         // Prevent paper from handling pointerdown.
         this.$box.find('.colorEditMiddle').on('mousedown click', function(evt) { evt.stopPropagation(); });
 		
-		
-         this.$box.find('.colorEditMiddle').on('click', _.bind(function() {
-				this.$box.find('.deleteMiddle').css({ webkitAnimationName:"deleteMiddle-on" });
+		//Drag and drop behaviour
+        dragDropMyElement(this.model, this.$box.find('.colorEditMiddle'));
+
+        this.$box.find('.colorEditMiddle').on('click', _.bind(function() {
+			this.$box.find('.deleteMiddle').css({ webkitAnimationName:"deleteMiddle-on" });
 			this.$box.find('.deleteMiddle').css({ animationName: "deleteMiddle-on" });
 			this.$box.find('.intersection').css({ webkitAnimationName:"intersection-on" });
 			this.$box.find('.intersection').css({ animationName: "intersection-on" });
@@ -751,6 +596,7 @@ joint.shapes.html.myElement = joint.shapes.basic.Generic.extend(_.extend({}, joi
 			this.model.set('color', color);
 			linkColor(color, model);
 		}, this));
+
 			
 		//count events
 		var evCount;
@@ -768,8 +614,7 @@ joint.shapes.html.myElement = joint.shapes.basic.Generic.extend(_.extend({}, joi
 			graph.addCells([rect]);
 			
 			window.pageXOffset
-            console.log(window.pageYOffset);			
-			
+           			
 			//count events
 			evCount = "move";
 			
@@ -793,10 +638,8 @@ joint.shapes.html.myElement = joint.shapes.basic.Generic.extend(_.extend({}, joi
 					});
 			    } 
 				
-			
-			
 			    if(evCount == "move"){
-					paper.on('blank:pointerup', _.bind(function(cellView, evt,x, y) {
+					paper.on('blank:pointerup', _.bind(function(cellView, evt,x, y) { 
 						
 						rect.remove();
 						
@@ -816,7 +659,7 @@ joint.shapes.html.myElement = joint.shapes.basic.Generic.extend(_.extend({}, joi
 								'.inPorts circle': { fill: 'gray', magnet: 'passive' },
 								'.outPorts circle': { fill: 'gray', magnet: 'passive' }
 							},
-							textarea: ''
+							 colorEdit: 'Start writing...'
 						});
 					
 						var link = new joint.shapes.html.Link1({
@@ -949,25 +792,7 @@ joint.shapes.html.Link = joint.dia.Link.extend({
 // -----------------------------------------------------------
 //The first page load
 $(document).ready(function() {
-		paper.on('blank:pointerdblclick', function(evt, x, y) { 
-		   var el1 = new joint.shapes.html.Element({ 
-		    position: { x: pageX, y: pageY }, 
-		    size: { width: 200, height: 100 },
-		    inPorts: ['in'],
-		    outPorts: ['out'],
-			attrs: {
-		        '.label': { text: 'Model', 'ref-x': .4, 'ref-y': .2 },
-		        rect: { fill: '#2ECC71' },
-		        '.inPorts circle': { fill: 'gray' },	
-		        '.outPorts circle': { fill: 'gray' }
-		    },
-		    textarea: ''
-		  });
-		  
-		  graph.addCells([el1]);
-		});
-
-
+		
 		var el1 = new joint.shapes.html.Element({ 
 		    position: { x: 600, y: 300 }, 
 		    size: { width: 200, height: 100 },
@@ -979,10 +804,12 @@ $(document).ready(function() {
 		        '.inPorts circle': { fill: 'gray' },	
 		        '.outPorts circle': { fill: 'gray' }
 		    },
-		    textarea: ''
+		     colorEdit: 'Start writing...'
 		  });
 		  
 		  graph.addCells([el1]);
+
+		  paperExpand();
 
   });
 
@@ -993,163 +820,19 @@ $(document).ready(function() {
 		angular.element($("#saveAsModal")).scope().setValueFunc(strjs);
 		angular.element($("#saveModal")).scope().setValueFunc(strjs);  
 		
-  }  );
-  //var ggg= '{\"cells\":[{\"type\":\"html.Element\",\"size\":{\"width\":200,\"height\":168.26666666666665},\"inPorts\":[\"in\"],\"outPorts\":[\"out\"],\"color\":\"#FFFF94\",\"widthTextarea\":150,\"heightTextarea\":118.26666666666667,\"widthColorEdit\":200,\"heightColorEdit\":168.26666666666665,\"topIn\":163.26666666666665,\"position\":{\"x\":810,\"y\":469},\"angle\":0,\"textarea\":\"dgdgdgd sdfsd sdfsdf sdfsdf sdfsdf sdfsd sdfsd sdfsdf sdfsdf sdfds sdfsd sdfsdf sdfsdf sdfsdf\",\"id\":\"a1d2d598-67a7-4ab4-9357-4dd1215dfdd4\",\"z\":22,\"attrs\":{\"rect\":{\"fill\":\"#2ECC71\"},\".inPorts circle\":{\"fill\":\"gray\"},\".outPorts circle\":{\"fill\":\"gray\"},\".label\":{\"text\":\"Model\",\"ref-x\":0.4,\"ref-y\":0.2},\".inPorts.port0circle\":{\"port\":{\"id\":\"in\",\"type\":\"in\"}},\".inPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100},\".outPorts.port0circle\":{\"port\":{\"id\":\"out\",\"type\":\"out\"}},\".outPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100,\"ref-dy\":100},\".inPorts.port0circle\":{\"port\":{\"id\":\"in\",\"type\":\"in\"}},\".inPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100},\".outPorts.port0circle\":{\"port\":{\"id\":\"out\",\"type\":\"out\"}},\".outPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100,\"ref-dy\":100}}},{\"type\":\"html.myElement\",\"size\":{\"width\":5,\"height\":5},\"inPorts\":[\"in\"],\"outPorts\":[\"out\"],\"color\":\"gray\",\"position\":{\"x\":1074,\"y\":646},\"angle\":0,\"id\":\"a67ce9d9-42d4-4ed4-b1b1-02732ee5f1c9\",\"z\":46,\"attrs\":{\"rect\":{\"fill\":\"#2ECC71\"},\".label\":{\"text\":\"Model\",\"ref-x\":0.4,\"ref-y\":0.2},\".inPorts.port0circle\":{\"port\":{\"id\":\"in\",\"type\":\"in\"}},\".inPorts.port0\":{\"ref\":\"rect\",\"ref-x\":15},\".outPorts.port0circle\":{\"port\":{\"id\":\"out\",\"type\":\"out\"}},\".outPorts.port0\":{\"ref\":\"rect\",\"ref-x\":15,\"ref-dy\":0}}},{\"type\":\"html.Link\",\"vertexAdd\":false,\"vertexMove\":false,\"source\":{\"id\":\"a1d2d598-67a7-4ab4-9357-4dd1215dfdd4\",\"port\":\"out\"},\"target\":{\"id\":\"a67ce9d9-42d4-4ed4-b1b1-02732ee5f1c9\",\"port\":\"in\"},\"id\":\"6d5100b2-1a17-4f50-9cab-ed6f1022db61\",\"z\":47,\"attrs\":{}},{\"type\":\"html.Element\",\"size\":{\"width\":200,\"height\":100},\"inPorts\":[\"in\"],\"outPorts\":[\"out\"],\"color\":\"#D6EB99\",\"widthTextarea\":150,\"heightTextarea\":60,\"widthColorEdit\":200,\"heightColorEdit\":100,\"topIn\":87,\"position\":{\"x\":1013,\"y\":695},\"angle\":0,\"textarea\":\"\",\"id\":\"4ef08f51-43b2-4db4-8dfb-ad0d469cc94c\",\"z\":48,\"attrs\":{\"rect\":{\"fill\":\"#2ECC71\"},\".inPorts circle\":{\"fill\":\"gray\"},\".outPorts circle\":{\"fill\":\"gray\"},\".label\":{\"text\":\"Model\",\"ref-x\":0.4,\"ref-y\":0.2},\".inPorts.port0circle\":{\"port\":{\"id\":\"in\",\"type\":\"in\"}},\".inPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100},\".outPorts.port0circle\":{\"port\":{\"id\":\"out\",\"type\":\"out\"}},\".outPorts.port0\":{\"ref\":\"rect\",\"ref-x\":100,\"ref-dy\":100}}},{\"type\":\"html.Link\",\"source\":{\"id\":\"a67ce9d9-42d4-4ed4-b1b1-02732ee5f1c9\",\"port\":\"out\"},\"target\":{\"id\":\"4ef08f51-43b2-4db4-8dfb-ad0d469cc94c\",\"port\":\"in\"},\"id\":\"9680fe97-a6f4-41c2-b427-6b00f2e4e661\",\"z\":49,\"attrs\":{}}]}';
-  function opMyGraph(myGraph){
+  } );
+
+    function opMyGraph(myGraph){
 	    graph.clear();
 	    graph.fromJSON(JSON.parse(myGraph));
   }	
 
   function nGraph(){
-  	    var gJson= '{"cells":[{"type":"html.Element","size":{"width":200,"height":100},"inPorts":["in"],"outPorts":["out"],"color":"#94DBFF","widthTextarea":150,"heightTextarea":60,"widthColorEdit":200,"heightColorEdit":100,"topIn":87,"position":{"x":600,"y":300},"angle":0,"textarea":"","id":"10f18062-45e0-4762-b0ae-891828c985c8","z":1,"attrs":{"rect":{"fill":"#2ECC71"},".inPorts circle":{"fill":"gray"},".outPorts circle":{"fill":"gray"},".label":{"text":"Model","ref-x":0.4,"ref-y":0.2},".inPorts>.port0>circle":{"port":{"id":"in","type":"in"}},".inPorts>.port0":{"ref":"rect","ref-x":100},".outPorts>.port0>circle":{"port":{"id":"out","type":"out"}},".outPorts>.port0":{"ref":"rect","ref-x":100,"ref-dy":100}}}]}'
-	    graph.clear();
+  	    var gJson= '{"cells":[{"type":"html.Element","size":{"width":200,"height":100},"inPorts":["in"],"outPorts":["out"],"color":"white","widthTextarea":200,"heightTextarea":100,"widthColorEdit":200,"heightColorEdit":100,"position":{"x":600,"y":300},"angle":0,"colorEdit":"Start writing...","id":"9494bb4e-4843-4f55-a4c0-b719632ed27d","z":1,"attrs":{"rect":{"fill":"#2ECC71"},".inPorts circle":{"fill":"gray"},".outPorts circle":{"fill":"gray"},".label":{"text":"Model","ref-x":0.4,"ref-y":0.2},".inPorts>.port0>circle":{"port":{"id":"in","type":"in"}},".inPorts>.port0":{"ref":"rect","ref-x":100},".outPorts>.port0>circle":{"port":{"id":"out","type":"out"}},".outPorts>.port0":{"ref":"rect","ref-x":100,"ref-dy":100}}}]}'
+  	    graph.clear();
 	    graph.fromJSON(JSON.parse(gJson));
   }	
-  
-
-        var title = '';
-		var countTitleSaveAs = '';
-		var countTitleSave = '';
-        //document.getElementById("save-submit").onclick = function() {saveGraph()};
-		
-		function saveGraph(){
-		   
-		   document.getElementById("title-save").value = title;
-		   var jso1 = graph.toJSON();
-           var strjs1 = JSON.stringify(jso1);
-		      
-		   document.getElementById("graph-txt-save").value = strjs1;
-		   document.getElementById("count-save").value = countTitleSave;
-		    
-		}
-		
-		//document.getElementById("print").onclick = function() {alert("hi")};
-		
-		//document.getElementById("save-as-submit").onclick = function() {saveAsGraph()};
-
-       function saveAsGraph() {
-	       var jso = graph.toJSON();
-           var strjs = JSON.stringify(jso);
-         
-		   document.getElementById("graph-txt").value = strjs;
-		   //document.getElementById("save-submit").setAttribute('data-target', '#saveModal');
-        }
-		
-		
-
-       
-	    
-		// Access the json created by open-engine.php for showing the title of graph under open sub-menu
-		
-	    /*$.getJSON('http://localhost/argument-mapping/open-engine.php', function(data) {
-            var items1 = [];
-			var items2 = [];
-			$.ajaxSetup({ scriptCharset: "utf-8" , contentType: "application/json; charset=utf-8"});
-            var count = 0;
-            $.each(data.graphs, function(i, graph) {
-			    count += 1;
-			    var str_q = JSON.stringify(graph.title);
-					var str_w = str_q.replace(/"/g, '');
-				console.log(graph.graph);
-				
-                
-				$('#myTable').append('<tr id = "open-click"><td><a href="#" class = "btn-default ' + str_w + '" id = "' + count + '">' + str_w + '</a></td><td><a href = "#" class = "btn-default ' + str_w + '" id="remove ' + count + '" data-toggle="modal" data-target="#removeModal"><span class="glyphicon glyphicon-trash"></span></a></td></tr>');
-				
-				});
-			countTitleSaveAs =  count ;
-			
-			
-			// After appending the titles of the graph to open sub-menu we loop through
-			//them to create a click event for opening the graphs
-			var temp = '';
-			for (var i = 1; i < count +1; i++){
-			    temp =  i;
-			    document.getElementById(temp).onclick = (function(temp) {
-				
-				
-                    return function (e) { 
-                        countTitleSave = temp;
-						var str_g = "";
-			            graph.clear();
-			            var tit = document.getElementById(temp).innerHTML;
-	                    $.each(data.graphs, function(i, graph) {
-							
-			                if (graph.title == tit){
-			                    str_g =  graph.graph;
-				            }
-					
-                        });
-				        title = tit;
-						console.log(str_g);
-				        graph.fromJSON(JSON.parse(str_g));
-						document.getElementById("save-submit").setAttribute('data-target', '#saveModal');
-					    
-						
-						
-                    };
-						
-                })(i);
-				
-				var tempRe = "remove " + i;
- 					document.getElementById(tempRe).onclick = (function(tempRe) {
-				
-				
-                    return function (e) { 
-					    document.getElementById("closeRemove").click();
-                        document.getElementById("title-remove").value = (document.getElementById(tempRe).className).replace("btn-default ","");
-						
-					};
-					
-				})(i);	
-			}
-			
-			savedGraphTitle = 0;
-			savedAsGraphTitle = 0;
-			savedGraphTitle = readCookie('saved-graph-cookie');
-			savedAsGraphTitle = readCookie('saved-as-graph-cookie');
-			
-			document.cookie="saved-graph-cookie=;";
-			document.cookie="saved-as-graph-cookie=;";
-         
-            if (!(savedGraphTitle == 0)) {
-			    openGraph(savedGraphTitle);
-				alert('The graph has been saved.');
-				document.getElementById("save-submit").setAttribute('data-target', '#saveModal');
-			}			
-			
-			else if (savedAsGraphTitle == 1) {
-			    openGraph(countTitleSaveAs);
-				alert('The graph has been saved.');
-				document.getElementById("save-submit").setAttribute('data-target', '#saveModal');
-			}	
-		*/	
-			//A function for opening a specific graph
-			/*function openGraph(graphT)
-			{
-			    document.getElementById(graphT).click();
-			   
-			}
-			
-			
-        });*/
-		
-		/*var tempRe = '';
-			for (var j = 1; j < count +1; j++){
-			    tempRe = "remove";
-				
-			    document.getElementById(tempRe).onclick = (function() {
-				
-				
-                    return function () { 
-					    alert("hi");
-                        document.getElementById("title-remove").value = document.getElementById(tempRe).className;
-						document.getElementById("closeRemove").click();
-						
-					};    
-                })(j);
-			}*/
-		
-	
+  		
 //});
 
 

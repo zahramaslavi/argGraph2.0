@@ -1,4 +1,4 @@
-<div id="top_nav" class = "navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="checkLogCtrl">
+<div id="top_nav" class = "navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="navbarCtrl" data-ng-init="init()">
 	    <div class = "container-fluid">
 		   <div class = "navbar-header">
 		       <!--<a href= "#" calss = "navbar-brand btn btn-lg"><img src="whatly1.png" alt="whatly" width="150" height="80"></a>-->
@@ -15,32 +15,32 @@
 			<div class ="collapse navbar-collapse navHeaderCollapse">
 			<!--<ul class = "nav navbar-nav navbar-left"><li><a calss = "btn btn-default btn-lg" href="#">Whatly</a></li></ul>-->
 	        <ul class = "nav navbar-nav navbar-right">
-	            <li class = "active dropdown" ng-show="userLogMessage()!=''"><a href="#" id ='file' class= "dropdown-toggle" data-toggle = "dropdown">File <b class = "caret"></b></a>
+	            <li class = "active dropdown" ng-show="userLogMessage()!=''"><a href="#" id ='file' class= "dropdown-toggle" data-toggle = "dropdown"><!-- File -->{{navbar.file}}<b class = "caret"></b></a>
 			        <ul class = "dropdown-menu">
-		                <li><a href="#" id='new' ng-click="showNewGraph()">New</a></li>
-			            <li class = "dropdown"><a href="#" id='open' class = "btn-default" data-toggle = "modal" data-target="#openModal">Graphs</a></li>
-			            <li><a href="#" class="btn-default" data-toggle="modal" data-target="#saveAsModal" id = "saveas">Save as</a></li>
-						<li><a href="#" class="btn-default" data-toggle="modal" data-target="#saveModal" id="save-submit">Save</a></li>
+		                <li><a href="#" id='new' ng-click="showNewGraph()"><!-- New -->{{navbar.new}}</a></li>
+			            <li class = "dropdown"><a href="#" id='open' class = "btn-default" data-toggle = "modal" data-target="#openModal"><!-- Graphs -->{{navbar.graphs}}</a></li>
+			            <li><a href="#" class="btn-default" data-toggle="modal" data-target="#saveAsModal" id = "saveas"><!-- Save as -->{{navbar.saveAs}}</a></li>
+						<li><a href="#" class="btn-default" data-toggle="modal" data-target="#saveModal" id="save-submit"><!-- Save -->{{navbar.save}}</a></li>
 						 <!-- <li><a href="#" id='print'>Print</a></li> -->
 				    </ul>
 		        </li>
-			    <li class ="dropdown"><a href="#" id = 'language' class = "dropdown-toggle" data-toggle = "dropdown">Language <b class = "caret"></b></a>
+			    <li class ="dropdown"><a href="#" id = 'language' class = "dropdown-toggle" data-toggle = "dropdown"><!-- Language --> {{navbar.language}}<b class = "caret"></b></a>
 			
 			        <ul class = "dropdown-menu">
-		                <li><a href="#" id='english' onclick="english(); return false;">English</a></li>
-			            <li><a href="#" id='mandarin' onclick="mandarin(); return false;">Mandarin</a></li>
-			            <li><a href="#" id='spanish' onclick="spanish(); return false;">Spanish</a></li>
-			            <li><a href="#" id='french'  onclick="french(); return false;">French</a></li>
+		                <li><a href="#" id='english' ng-click="changeLanguage(1)"><!-- English -->{{navbar.english}}</a></li>
+			            <li><a href="#" id='mandarin' ng-click="changeLanguage(3)"><!-- Mandarin -->{{navbar.mandarin}}</a></li>
+			            <li><a href="#" id='spanish' ng-click="changeLanguage()"><!-- Spanish -->{{navbar.spanish}}</a></li>
+			            <li><a href="#" id='french'  ng-click="changeLanguage()"><!-- French -->{{navbar.french}}</a></li>
 				    </ul>
 		        </li>
-		        <li class = "dropdown"><a href="#" id= 'help' data-toggle = "modal">Watch demo</a></li>
-				<li class = "dropdown"><a href="#" id= 'help' data-toggle = "modal">About</a></li>
+		        <li class = "dropdown"><a href="#" id= 'help' data-toggle = "modal"><!-- Watch demo -->{{navbar.watchDemo}}</a></li>
+				<li class = "dropdown"><a href="#" id= 'help' data-toggle = "modal"><!-- About -->{{navbar.about}}</a></li>
 				
-		        <li class="log-in" id ="log"><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#logInModal" ng-show="userLogMessage()==''">Log in</a></li>
-			    <li class="register" id="reg"><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#registerModal" ng-show="userLogMessage()==''">Register</a></li>
+		        <li class="log-in" id ="log"><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#logInModal" ng-show="userLogMessage()==''"><!-- Log in -->{{navbar.login}}</a></li>
+			    <li class="register" id="reg"><a href="#" class="btn btn-lg" data-toggle="modal" data-target="#registerModal" ng-show="userLogMessage()==''"><!-- Register -->{{navbar.register}}</a></li>
 			    <!--  <li class="hiUser" id ="hi" ng-controller="loginCtrl"><a href="#" class="btn btn-lg" ng-model="test" ng-show="true">Hi {{test}}</a></li> -->
-			    <li class="hiUser" id ="hi"><a href="#" class="btn btn-lg" ng-show="userLogMessage()!=''">Hi {{userLogMessage()}} </a></li>
-			    <li class="logOut" id="logOut"><a href="#" class="btn btn-lg" ng-show="userLogMessage()!=''" ng-click="userLogout()">Log out</a></li>
+			    <li class="hiUser" id ="hi"><a href="#" class="btn btn-lg" ng-show="userLogMessage()!=''"><!-- Hi -->{{navbar.hiUser}} {{userLogMessage()}} </a></li>
+			    <li class="logOut" id="logOut"><a href="#" class="btn btn-lg" ng-show="userLogMessage()!=''" ng-click="userLogout()"><!-- Log out -->{{navbar.logOut}}</a></li>
 			   
 		    </ul>
 	        </div>

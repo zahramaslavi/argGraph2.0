@@ -1,33 +1,34 @@
 <!--Log in modal-->
-	<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInLabel" aria-hidden="true" ng-controller="loginCtrl">
+	<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInLabel" aria-hidden="true" ng-controller="loginCtrl" data-ng-init="init()">
 		<div class="modal-dialog">
 			<div class="modal-content">
 			<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-			<h4 class="modal-title" id="logInLabel">Log In</h4>
+			<h4 class="modal-title" id="logInLabel"><!-- Log In -->{{regLang.loginModHeader}}</h4>
 			</div>
 			<div class="modal-body">
 				<form name="loginForm" class="pure-form form" ng-submit="loginSubmit()"  novalidate>
 					<div class="ubcEmail form-group" ng-if="!logedIn()">
-						<input type="email" placeholder="UBC Email" name="ubcEmail" id="emLogin" class="form-control" ng-model="$parent.ubcEmail" ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@ubc.ca$/" required>
+						<input type="email" placeholder="{{regLang.loginModEmailPh}}" name="ubcEmail" id="emLogin" class="form-control" ng-model="$parent.ubcEmail" ng-pattern="/^[_a-zA-Z0-9]+(\.[_a-zA-Z0-9]+)*@ubc.ca$/" required>
 						<span style="color:red" ng-show="loginForm.ubcEmail.$dirty && loginForm.ubcEmail.$invalid">
-						    <span ng-show="loginForm.ubcEmail.$error.required">Email is required.</span>
-						    <span ng-show="loginForm.ubcEmail.$error.email">Invalid email address.</span>
-						    <span ng-show="loginForm.ubcEmail.$error.pattern">Please enter your UBC email.</span>
+						    <span ng-show="loginForm.ubcEmail.$error.required"><!-- Email is required. -->{{regLang.loginModEmailRequired}}</span>
+						    <span ng-show="loginForm.ubcEmail.$error.email"><!-- Invalid email address. -->{{regLang.loginModInvalidEmail}}</span>
+						    <span ng-show="loginForm.ubcEmail.$error.pattern"><!-- Please enter your UBC email. -->{{regLang.loginModUBCEmReq}}</span>
 					    </span>
 					</div>
 					<div class="password form-group2" ng-if="!logedIn()">
-						<input type="password" placeholder="Password"  name="password" id = "pswLogin" class="form-control" ng-model="$parent.password" ng-minlength="8" ng-maxlength="20" required>
+						<input type="password" placeholder="{{regLang.loginModPasswordPh}}"  name="password" id = "pswLogin" class="form-control" ng-model="$parent.password" ng-minlength="8" ng-maxlength="20" required>
 						<span style="color:red" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
-					    <span ng-show="loginForm.password.$error.required">Password is required.</span>
-					    <span ng-show="loginForm.password.$error.minlength">Your password must be longer.</span>
-					    <span ng-show="loginForm.password.$error.maxlength">Your password must be shorter.</span>
+					    <span ng-show="loginForm.password.$error.required"><!-- Password is required. -->{{regLang.loginModPasswordReq}}</span>
+					    <span ng-show="loginForm.password.$error.minlength"><!-- Your password must be longer. -->{{regLang.loginModPasswordLonger}}</span>
+					    <span ng-show="loginForm.password.$error.maxlength"><!-- Your password must be shorter. -->{{regLang.loginModPasswordShorter}}</span>
 					    </span>
 					</div>
                     </br>
-					<button type="submit" class="btn btn-info btn-lg" ng-disabled="loginForm.ubcEmail.$dirty && loginForm.ubcEmail.$invalid || loginForm.password.$dirty && loginForm.password.$invalid" ng-if="!logedIn()">Log In</button>
+					<button type="submit" class="btn btn-info btn-lg" ng-disabled="loginForm.ubcEmail.$dirty && loginForm.ubcEmail.$invalid || loginForm.password.$dirty && loginForm.password.$invalid" ng-if="!logedIn()"><!-- Log In -->{{regLang.loginModButton}}</button>
 
-					<span style="color:green" ng-if="logedIn()"> You have successfully loged in!</span>
+					<span style="color:green" ng-if="logedIn()"><!-- You have successfully loged in! -->{{regLang.LoginModSuccessMes}}</span>
+					<span style="color:red" ng-if="userLogError"><!-- Your email or password was incorrect! -->{{regLang.logModErrMes}}</span>
 
 				</form>
 			</div>

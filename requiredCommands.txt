@@ -1,0 +1,83 @@
+Steps to push code to the origin master repository:
+git init
+git add --all
+git commit -m "first commit"
+git push origin master
+
+
+
+getList():
+curl -i -H "Accept: application/json" http://adbabble.localhost/coupon
+
+get($id):
+curl -i -H "Accept: application/json" http://adbabble.localhost/coupon/1
+
+create($data):
+curl -i -H "Accept: application/json" -X POST -d "user=zahraamas&userId=13&discount=20&secret=32&couponId=17&businessId=54&dateBought=2015-07-27&name=Asian restaurant&price=40$&description=blah blah blah" http://adbabble.localhost/coupon
+
+update($id, $data):
+curl -i -H "Accept: application/json" -X PUT -d "user=zahraamas&userId=13&discount=20&secret=32&couponId=17&businessId=54&dateBought=2015-07-27&name=Asian restaurant&price=40$&description=blah blah blah" http://adbabble.localhost/coupon/1
+
+delete($id):
+curl -i -H "Accept: application/json" -X DELETE http://adbabble.localhost/coupon/3
+
+////////////////////////
+argGraph
+
+getList():
+curl -i -H "Accept: application/json" http://argGraph.localhost/user
+
+get($id):
+curl -i -H "Accept: application/json" http://argGraph.localhost/user/3
+
+loginAction:
+curl -i -H "Accept: application/json" http://argGraph.localhost/user/login/baghoorii@ubc.ca/bagh0000
+
+curl -i -H "Accept: application/json" -X POST -d "ubcEmail=zehi@ubc.ca&password=111111" http://argGraph.localhost/user/signin
+
+create($data):
+curl -i -H "Accept: application/json" -X POST -d "name=hoori&username=zehi&ubcEmail=zehi@ubc.ca&password=111111" http://argGraph.localhost/user
+
+update($id, $data):
+curl -i -H "Accept: application/json" -X PUT -d "name=hoori&username=zehira&ubcEmail=zehi@ubc.ca&password=111111" http://argGraph.localhost/user/2
+
+delete($id):
+curl -i -H "Accept: application/json" -X DELETE http://argGraph.localhost/user/3
+
+
+/////
+graph
+
+
+
+getList():
+curl -i -H "Accept: application/json" http://argGraph.localhost/graph
+
+get($id):
+curl -i -H "Accept: application/json" http://argGraph.localhost/graph/3
+
+getUserGraphAction:
+curl -i -H "Accept: application/json" -X POST -d "userId=9"  http://argGraph.localhost/graph/getUserGraph
+
+create($data):
+curl -i -H "Accept: application/json" -X POST -d "userId=3&graph={greating:hele}&title=new" http://argGraph.localhost/graph
+
+update($id, $data):
+curl -i -H "Accept: application/json" -X PUT -d "userId=9&graph={"cells":[{"type":"html.Element","size":{"width":200,"height":100},"inPorts":["in"],"outPorts":["out"],"color":"#94DBFF","widthTextarea":150,"heightTextarea":60,"widthColorEdit":200,"heightColorEdit":100,"topIn":87,"position":{"x":600,"y":300},"angle":0,"textarea":"باالل","id":"693e8410-70ed-4168-ada4-1c24f31d5b66","z":1,"attrs":{"rect":{"fill":"#2ECC71"},".inPorts circle":{"fill":"gray"},".outPorts circle":{"fill":"gray"},".label":{"text":"Model","ref-x":0.4,"ref-y":0.2},".inPorts.port0circle":{"port":{"id":"in","type":"in"}},".inPorts.port0":{"ref":"rect","ref-x":100},".outPorts.port0circle":{"port":{"id":"out","type":"out"}},".outPorts.port0":{"ref":"rect","ref-x":100,"ref-dy":100},".inPorts>.port0>circle":{"port":{"id":"in","type":"in"}},".inPorts>.port0":{"ref":"rect","ref-x":100},".outPorts>.port0>circle":{"port":{"id":"out","type":"out"}},".outPorts>.port0":{"ref":"rect","ref-x":100,"ref-dy":100}}}]}&title=graph7" http://argGraph.localhost/graph/94
+
+delete($id):
+curl -i -H "Accept: application/json" -X DELETE http://argGraph.localhost/graph/3
+
+
+INSERT INTO `language`(`file`, `new`, `graphs`, `saveAs`, `save`, `graphsModHeader`, `graphsModOpen`, `graphsModRemove`, `saveAsModHeader`, `saveAsModPlease`, `saveAsModTitlePh`, `saveAsModButton`, `saveAsModSuccessMes`, `saveAsModTitRequired`, `saveAsModLongerTitle`, `saveAsModShorterTitle`, `saveModPlease`, `saveModButton`, `saveModeSuccessMes`, `language`, `english`, `mandarin`, `spanish`, `french`, `watchDemo`, `about`, `hiUser`, `logOut`, `login`, `register`, `loginModHeader`, `loginModEmailPh`, `loginModPasswordPh`, `loginModButton`, `loginModEmailRequired`, `loginModInvalidEmail`, `loginModUBCEmReq`, `loginModPasswordReq`, `loginModPasswordLonger`, `loginModPasswordShorter`, `LoginModSuccessMes`, `regModHeader`, `regModFullnamePh`, `regModUsernamePh`, `regModEmailPh`, `regModPasswordPh`, `regModPassConfirmPh`, `regModButton`, `regModFullnameReq`, `regModUsernameReq`, `regModEmailReq`, `regModInvalidEmail`, `regModUBCEmailReq`, `regModPasswordReq`, `regModPasswordLonger`, `regModPasswordShorter`, `regModPasswordConfReq`, `regModePasswordConfLonger`, `regModPasswordConfShorter`, `regModSuccessMes`, `startWriting`) VALUES 
+(ّ"File","New","Graphs","Save as","save","Open and remove Graphs","Open","Remove","Save as","Please enter a title for your graph:","Title*","Save","You have successfully saved your graph!","Title is required.","Please choose a longer title for you graph.","please choose a shorter title for your graph.","Please click on save to save the graph:","Save","You have successfully saved your graph!","Language","English","Mandarin","Spanish","French","Watch demo","About","Hi","Log out","Log in","Register","Log in","UBC email","Password","Log in","Email is required.","Invalid email address.","Please enter your UBC email.","Password is required.","Your password must be longer.","Your password must be shorter.","You have successfully loged in!","Register","Full name*","Username*","UBC email*","Password*","Confirm password*","Register","Full name is required.","Username is required.","Email is required.","Invalid email address.","Please enter your UBC email.","Password is required.","Your password must be longer.","Your password must be shorter.","Password confirmation is required.","Your password must be longer.","Your password must be shorter.","You have successfully registered!","Start writing")
+
+"文件1"，"新建2"，"图形3"，"另存为4"，"保存5"，"打开，取出图6"，"打开"，"删除"，"另存为"，"请输入一个标题为你的图： "，"标题*"，"保存"，"您已经成功保存你的图！"，"标题是必需的。"，"请选择一个较长的标题为你绘制。"，"请选择适合你的图更短的称号。 "，"请点击保存，保存图："，"保存"，"您已经成功保存您的图形"，"语言"，"英语"，"普通话"，"西班牙"，"法国"，"观察！演示"，"关于"，"你好"，"注销"，"登录"，"注册"，"登录"，"UBC电子邮件"，"密码"，"登陆"，"电子邮件是必需的。" ，"电子邮件地址无效。"，"请输入您的UBC电子邮件。"，"密码是必需的。"，"您的密码必须是更长的时间。"，"您的密码必须更短。"，"你在成功签约！" ，"注册"，"姓名*"，"用户名*"，"UBC电子邮件*"，"密码*"，"确认密码*"，"注册"，"全名是必需的。"，"用户名是必需的。 "，"电子邮件是必需的。"，"电子邮件地址无效。"，"请输入您的UBC电子邮件。"，"密码是必需的。"，"您的密码必须是更长的时间。"，"您的密码必须更短。"， "确认密码是必需的。"，"您的密码必须是更长的时间。"，"您的密码必须更短。"，"您已成功注册！"，"开始写"
+
+INSERT INTO `language`(`file`, `new`, `graphs`, `saveAs`, `save`, `graphsModHeader`, `graphsModOpen`, `graphsModRemove`, `saveAsModHeader`, `saveAsModPlease`, `saveAsModTitlePh`, `saveAsModButton`, `saveAsModSuccessMes`, `saveAsModTitRequired`, `saveAsModLongerTitle`, `saveAsModShorterTitle`, `saveModPlease`, `saveModButton`, `saveModeSuccessMes`, `language`, `english`, `mandarin`, `spanish`, `french`, `watchDemo`, `about`, `hiUser`, `logOut`, `login`, `register`, `loginModHeader`, `loginModEmailPh`, `loginModPasswordPh`, `loginModButton`, `loginModEmailRequired`, `loginModInvalidEmail`, `loginModUBCEmReq`, `loginModPasswordReq`, `loginModPasswordLonger`, `loginModPasswordShorter`, `LoginModSuccessMes`, `regModHeader`, `regModFullnamePh`, `regModUsernamePh`, `regModEmailPh`, `regModPasswordPh`, `regModPassConfirmPh`, `regModButton`, `regModFullnameReq`, `regModUsernameReq`, `regModEmailReq`, `regModInvalidEmail`, `regModUBCEmailReq`, `regModPasswordReq`, `regModPasswordLonger`, `regModPasswordShorter`, `regModPasswordConfReq`, `regModePasswordConfLonger`, `regModPasswordConfShorter`, `regModSuccessMes`, `startWriting`) VALUES 
+(ّ"文件","新","图","另存为","保存","打开，取出图","开放","删除","另存为","请输入标题为你的图：","称号*","保存","您已成功保存您的图形！","标题是必需的。","请选择一个较长的标题为你绘制。","请选择适合您的图更短的称号。","请点击保存，保存图：","保存","您已成功保存您的图形！","语言","英语","普通话","西班牙语","法国","观看演示","左右","你好","登出","登录","注册","登录","UBC电子邮件","密码","登录","电子邮件是必需的。","无效的邮件地址。","请输入您的UBC的电子邮件。","密码是必需的。","您的密码必须是更长的时间。","您的密码必须更短。","您已成功了！","注册","全名*","用户名*","UBC电子邮件*","密码*","确认密码*","注册","全名是必需的。","用户名是必需的。","电子邮件是必需的。","无效的邮件地址。","请输入您的UBC的电子邮件。","密码是必需的。","您的密码必须是更长的时间。","您的密码必须更短。","确认密码是必需的。","您的密码必须是更长的时间。","您的密码必须更短。","您已成功注册！","动笔")
+
+
+french
+
+("Fichier", "Nouveau", "graphiques", "Enregistrer sous", "sauver", "Ouvrir et retirer Graphiques", "Open", "Supprimer" "Enregistrer sous", "S"il vous plaît entrer un titre pour votre graphique: "," Titre * "," Enregistrer "," Vous avez enregistré avec succès votre graphique »,« Titre est nécessaire »,« S"il vous plaît choisir un titre plus long pour vous graph "," s"il vous plaît choisir un titre plus court pour votre!.. . graph "," S"il vous plaît cliquer sur Enregistrer pour enregistrer le graphique: "," Enregistrer "," Vous avez enregistré avec succès votre graphique »,« Langue »,« Anglais »,« Mandarin »,« espagnol »,« français »,! »Voir la démo», «À propos de», «Salut», «Déconnexion», «Connexion», «enregistrer», «Connexion», «UBC email "," Mot de passe "," Connexion "," Email est requis . "," adresse e-mail valide. "," S"il vous plaît, entrez votre adresse UBC. "," Mot de passe est requis. "," Votre mot de passe doit être plus long. "," Votre mot de passe doit être plus courte. "," Vous êtes connecté ! "," enregistrer "," Nom complet * "," Nom d"utilisateur * "," UBC email * "," Mot de passe * "," Confirmer mot de passe * "," enregistrer "," nom complet est requis. "," Nom d"utilisateur est nécessaire. "," Email est requis. "," adresse e-mail valide. "," S"il vous plaît, entrez votre adresse UBC. "," Mot de passe est requis. "," Votre mot de passe doit être plus long. "," Votre mot de passe doit être plus courte. »,« confirmation de mot de passe est nécessaire. "," Votre mot de passe doit être plus long. "," Votre mot de passe doit être plus courte. "," Vous avez enregistré avec succès! »,« Commencez à écrire ")

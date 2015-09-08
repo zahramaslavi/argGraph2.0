@@ -11,7 +11,7 @@ return array(
         'Application',
         'User',
         'Graph',
-        
+        'Language',
     ),
 
     // These are various options for the listeners attached to the ModuleManager
